@@ -1,2 +1,5 @@
 export { Announcement } from "./Announcement/Announcement"
 export { Layout } from "./Layout/Layout"
+export { Button } from "./Button/Button"
+export { Input } from "./Input/Input"
+export { Icon } from "./Icon/Icon"

@@ -3,7 +3,12 @@ import { MainSlider } from "@/widgets/MainSlider"
 
 export const MainHeader = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+      }}
+    >
       <MainSlider />
       <MainInfo />
     </div>

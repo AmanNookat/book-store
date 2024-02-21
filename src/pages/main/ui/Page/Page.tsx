@@ -1,11 +1,11 @@
-import { BookList } from "@/widgets/BookList"
 import { MainHeader } from "@/widgets/MainHeader"
+import { PopularBookList } from "@/widgets/PopularBookList"
 
 export const MainPage = () => {
   return (
     <>
       <MainHeader />
-      <BookList />
+      <PopularBookList />
     </>
   )
 }

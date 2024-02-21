@@ -1,4 +1,3 @@
-import { FC, ReactElement } from "react"
 import { Navigate, createBrowserRouter } from "react-router-dom"
 import { baseLayout } from "./layouts/baseLayout"
 import { MainPage } from "@/pages/main"
@@ -8,21 +7,21 @@ import { CartPage } from "@/pages/cart"
 import { BookPage } from "@/pages/book"
 
 interface GuardProps {
-  children: ReactElement
+  children: React.ReactElement
 }
 
-const GuestGuard: FC<GuardProps> = ({ children }) => {
-  const isAuth = localStorage.getItem("readonly")
+const GuestGuard: React.FC<GuardProps> = ({ children }) => {
+  // const isAuth = localStorage.getItem("readonly")
 
-  if (!isAuth) return <Navigate to="/sign-in" />
+  // if (!isAuth) return <Navigate to="/sign-in" />
 
   return children
 }
 
-const AuthGuard: FC<GuardProps> = ({ children }) => {
-  const isAuth = localStorage.getItem("readonly")
+const AuthGuard: React.FC<GuardProps> = ({ children }) => {
+  // const isAuth = localStorage.getItem("readonly")
 
-  if (isAuth) return <Navigate to="/" />
+  // if (isAuth) return <Navigate to="/" />
 
   return children
 }

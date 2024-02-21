@@ -1,16 +1,26 @@
-import { getBooks } from "@/entities/books/api/bookApi"
-import { useAppDispatch, useAppSelector } from "@/shared/model/hooks"
+// import { getPopularBooks } from "@/entities/books/api/bookApi"
+// import { useAppDispatch, useAppSelector } from "@/shared/model/hooks"
+
+// export const PageUpButton = () => {
+//   const { data: popularBooks } = useAppSelector(
+//     (state) => state.books.popularBooks
+//   )
+//   const dispatch = useAppDispatch()
+
+//   console.log(popularBooks)
+
+//   return (
+//     <button
+//       className=""
+//       onClick={() => {
+//         dispatch(getPopularBooks())
+//       }}
+//     >
+//       TEST
+//     </button>
+//   )
+// }
 
 export const PageUpButton = () => {
-  const { books, error } = useAppSelector((state) => state.books)
-
-  const dispatch = useAppDispatch()
-
-  console.log(books)
-  console.log(error)
-  return (
-    <button className="" onClick={() => dispatch(getBooks())}>
-      UP
-    </button>
-  )
+  return <button>UP</button>
 }

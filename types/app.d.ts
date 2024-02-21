@@ -1,9 +1,7 @@
 declare const _brand: unique symbol
 
 declare global {
-  /**
-   * Custom utility types
-   */
+  // custom utility types
   export type Nullable<T> = T | null
 
   export type Keys<T extends Record<string, unknown>> = keyof T
@@ -19,9 +17,7 @@ declare global {
 
   export type Brand<K, T> = K & { [_brand]: T }
 
-  /**
-   * Type aliases
-   */
+  //  alias types
   export type Phone = string
 
   export type Email = string
@@ -38,23 +34,8 @@ declare global {
 
   export type Color = string
 
-  /**
-   * Shared kernel
-   */
-
-  /**
-   * ⚠️ FSD
-   *
-   * Its hack way to export redux infering types from @/app
-   * and use it in @/shared/model/hooks.ts
-   */
-
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  //   declare type RootState = import("../src/app/appStore").RootState;
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  //   declare type AppDispatch = import("../src/app/appStore").AppDispatch;
+  // rtk types
   declare type RootState = import("../src/app/appStore").RootState
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   declare type AppDispatch = import("../src/app/appStore").AppDispatch
 }
 

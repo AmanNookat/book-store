@@ -1,20 +1,30 @@
-import { API_ENDPOINTS, baseAPI } from "@/shared/api"
+import { API_ENDPOINTS } from "@/shared/api"
+import { instance } from "@/shared/api/instance"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
 
-interface Params {
+interface User {
   email: Email
   password: string
+  id?: number
 }
 
-export const loginThunk = createAsyncThunk<void, Params, { state: RootState }>(
-  "sign-in",
-  async (body: Params) => {
+export const loginThunk = createAsyncThunk<User, User, { rejectValue: string }>(
+  "auth/login",
+  async (loginUser: User, { rejectWithValue }) => {
     try {
-      const response = await axios.post(baseAPI + API_ENDPOINTS.USERS, body)
-      return response.data
-    } catch (error) {
-      return Promise.reject(error)
+      const { data } = await instance.get<User[]>(API_ENDPOINTS.USERS)
+      const checkUser = data.find(
+        (user: User) => user.email === loginUser.email
+      )
+      console.log(checkUser)
+
+      if (checkUser) {
+        return checkUser
+      } else {
+        return rejectWithValue("Пользователь не найден")
+      }
+    } catch (err) {
+      return Promise.reject(err)
     }
   }
 )

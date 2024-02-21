@@ -16,6 +16,12 @@ export interface Book {
   id: Id
 }
 
+export interface BooksInitStateKey<T> {
+  data: T
+  loading: boolean
+  error: boolean
+}
+
 export type BookCategory =
   | "Художественная литература"
   | "Комиксы"

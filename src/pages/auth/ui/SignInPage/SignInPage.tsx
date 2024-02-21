@@ -1,3 +1,4 @@
+import { LoginForm } from "@/features/auth/login"
 import { useCallback } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -12,7 +13,7 @@ export const SignInPage = () => {
   return (
     <div>
       <h1>Sign In</h1>
-      {/* <SignInForm onComplete={onComplete} /> */}
+      <LoginForm onComplete={onComplete} />
     </div>
   )
 }
