@@ -1,37 +1,31 @@
 import { Link } from "react-router-dom"
-import Logo from "../Logo/Logo"
+import { Button, Icon, Input } from "@/shared/ui"
+import { Logo } from "../.."
+import style from "./LayoutHeader.module.scss"
+import { navbarLinks } from "@/shared/lib"
 
 export const LayoutHeader = () => {
   return (
-    <div
-      className=""
-      style={{
-        backgroundColor: "#26a9e0",
-        position: "sticky",
-        padding: 10,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          maxWidth: 1300,
-          margin: "0 auto",
-          justifyContent: "space-between",
-        }}
-      >
+    <div className={style.root}>
+      <div className={style.root_inner}>
         <Logo />
-        <button>Каталог</button>
-        <div>
-          <input type="text" placeholder="Поиск" />
-          <button>Найти</button>
+        <Button theme="primary">
+          <Icon type="catalog" />
+          Каталог
+        </Button>
+        <div className={style.root_input}>
+          <Input placeholder="Хочу найти" />
+          <Button theme="primary">
+            <Icon type="search" />
+          </Button>
         </div>
-        <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
-          <li>
-            <Link to="/sign-in">Войти</Link>
-          </li>
-          <li>Заказы</li>
-          <li>Избранные</li>
-          <li>Корзина</li>
+        <ul className={style.root_links}>
+          {navbarLinks.map((item) => (
+            <Link to={item.url}>
+              <Icon type={item.iconName} />
+              <p className="text-sm">{item.text}</p>
+            </Link>
+          ))}
         </ul>
       </div>
     </div>

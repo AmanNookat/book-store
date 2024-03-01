@@ -1,7 +1,7 @@
 import cn from "classnames"
 import style from "./Icon.module.scss"
 
-type IconType =
+export type IconType =
   | "bag"
   | "like"
   | "liked"
@@ -11,6 +11,11 @@ type IconType =
   | "chevronDown"
   | "toggleRight"
   | "trash"
+  | "catalog"
+  | "search"
+  | "orders"
+  | "favorites"
+  | "cart"
 
 interface Props {
   className?: string
@@ -18,24 +23,19 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-export const Icon: React.FC<Props> = (props) => {
+export const Icon: React.FC<Props> = ({ className, type, onClick }) => {
   return (
     <div
       className={cn(
         style.root,
         {
-          [style.root_clickable]: Boolean(props.onClick),
+          [style.root_clickable]: Boolean(onClick),
         },
-        props.className
+        className
       )}
-      onClick={props.onClick}
+      onClick={onClick}
     >
-      <div
-        className={style.icon}
-        style={{
-          backgroundImage: `url("/images/${props.type}.svg")`,
-        }}
-      ></div>
+      <img src={`/images/${type}.svg`} alt={type} className={style.icon} />
     </div>
   )
 }

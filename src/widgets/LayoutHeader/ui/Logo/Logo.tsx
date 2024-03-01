@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
+import style from "./Logo.module.scss"
+import cn from "classnames"
 
-const Logo = () => {
+export const Logo = () => {
   return (
-    <Link to="/">
+    <Link to="/" className={cn(style.root, "text-2xl", "text-bold")}>
       <div>📚</div>
+      <p>Readonly</p>
     </Link>
   )
 }
-
-export default Logo

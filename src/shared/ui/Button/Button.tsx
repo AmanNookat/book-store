@@ -4,6 +4,7 @@ import style from "./Button.module.scss"
 type ButtonTheme = "primary" | "secondary"
 
 interface Props {
+  className?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   children: React.ReactNode
   theme?: ButtonTheme
@@ -20,12 +21,16 @@ export const Button: React.FC<Props> = ({
   isLoading,
   size,
   type,
+  className,
+  theme,
 }) => {
   return (
     <button
       className={cn(
         style.root,
         style[`root_size_${size}`],
+        style[`root_theme_${theme}`],
+        className,
         disabled && style.root_disabled
       )}
       type={type}

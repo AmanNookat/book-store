@@ -6,7 +6,7 @@ export const baseLayout = (
   <Layout
     announcementSlot={
       <Announcement>
-        <span>Объявление</span>
+        <span>Войдите или зарегистируйтесь, чтобы получить скидку</span>
       </Announcement>
     }
     bottomSlot={<PageUpButton />}

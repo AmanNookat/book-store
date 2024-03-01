@@ -8,11 +8,11 @@
   color: white;
   border: 0;
   font-size: 16px;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 4px;
   cursor: pointer;
+  padding: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   transform: scale(1);
   transition: transform 0.2s ease-in-out;
@@ -28,6 +28,16 @@
     @media ($adap-s) {
       width: 100%;
       min-width: 100%;
+    }
+  }
+
+  &_theme_primary {
+    background-color: $button-primary;
+    padding: 20px;
+
+    &:hover {
+      background-color: $button-primary-hovered;
+      transition: 0.5s;
     }
   }
 

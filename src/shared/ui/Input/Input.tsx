@@ -1,3 +1,6 @@
+import cn from "classnames"
+import style from "./Input.module.scss"
+
 interface Props extends React.HTMLAttributes<HTMLInputElement> {
   placeholder?: string
   register?: any
@@ -13,6 +16,12 @@ export const Input: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <input type={type} placeholder={placeholder} {...register} {...props} />
+    <input
+      className={cn(style.root, "text-base")}
+      type={type}
+      placeholder={placeholder}
+      {...register}
+      {...props}
+    />
   )
 }

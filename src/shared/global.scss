@@ -13,30 +13,31 @@ body {
   min-height: 100vh;
 
   a {
-    color: $link-color;
+    color: white;
+    text-decoration: none;
   }
 
-  .text_xs {
+  .text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
   }
 
-  .text_sm {
+  .text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
 
-  .text_base {
+  .text-base {
     font-size: 1rem;
     line-height: 1.5rem;
   }
 
-  .text_lg {
+  .text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
 
-  .text_xl {
+  .text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
@@ -47,7 +48,7 @@ body {
   $size: 24px;
 
   @for $i from 2 through 9 {
-    .text_#{$i}xl {
+    .text-#{$i}xl {
       font-size: $size;
     }
     $size: $size * 1.25;

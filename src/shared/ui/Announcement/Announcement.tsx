@@ -6,7 +6,5 @@ interface Props {
 }
 
 export const Announcement: React.FC<Props> = ({ children }) => {
-  return (
-    <div className={cn(style.root, "text_sm", "text-bold")}>{children}</div>
-  )
+  return <div className={cn(style.root, "text-sm")}>{children}</div>
 }
