@@ -10,7 +10,7 @@ export const loginFormSchema = z.object({
       message: "Неправильный формат email",
     }),
   password: z.string().min(8, {
-    message: "Пароль должен содержать не меньше 8 символов",
+    message: "Не меньше 8 символов",
   }),
 })
 

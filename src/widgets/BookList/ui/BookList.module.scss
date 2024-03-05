@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  gap: 20px;
+
+  &::-webkit-scrollbar {
+   }
+}

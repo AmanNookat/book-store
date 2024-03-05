@@ -1,3 +1,4 @@
+import { findUser } from "@/entities/users/api/usersApi"
 import { API_ENDPOINTS } from "@/shared/api"
 import { instance } from "@/shared/api/instance"
 import { createAsyncThunk } from "@reduxjs/toolkit"
@@ -10,20 +11,22 @@ interface User {
 
 export const registerThunk = createAsyncThunk(
   "auth/registration",
-  async (regUser: User) => {
+  async (regUser: User, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await instance.get<User[]>(API_ENDPOINTS.USERS)
+      const checkUser = await dispatch(findUser(regUser.email))
+      if (checkUser) return rejectWithValue("Такой пользователь уже существует")
 
-      const checkUser = data.find((user: User) => user.email === regUser.email)
-
-      if (checkUser) {
-        alert("Такой пользователь уже есть")
-        throw new Error("Такой пользователь уже есть")
-      } else {
-        instance.post(API_ENDPOINTS.USERS, regUser)
-        alert("Регистрация прошла успешно")
+      const userObj = {
+        ...regUser,
+        isAdmin: false,
+        nickname: "",
+        image: "",
+        age: 0,
+        about: "",
       }
-      return regUser
+      await instance.post(API_ENDPOINTS.USERS, userObj)
+      alert("Успешно")
+      return userObj
     } catch (err) {
       return Promise.reject(err)
     }

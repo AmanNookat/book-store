@@ -1,0 +1,31 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="6.5" y="61.5" width="58" height="7" fill="#2660AB" stroke="#0D0C22"/>
+<rect x="11.5" y="50.5" width="16" height="11" fill="white" stroke="#0D0C22"/>
+<rect x="43.5" y="50.5" width="16" height="11" fill="white" stroke="#0D0C22"/>
+<rect x="27.5" y="50.5" width="4" height="11" fill="white" stroke="#0D0C22"/>
+<rect x="14.5" y="53.5" width="4" height="5" fill="#26A9E0" stroke="#0D0C22"/>
+<rect x="46.5" y="53.5" width="4" height="5" fill="#26A9E0" stroke="#0D0C22"/>
+<rect x="20.5" y="53.5" width="4" height="5" fill="#26A9E0" stroke="#0D0C22"/>
+<rect x="52.5" y="53.5" width="4" height="5" fill="#26A9E0" stroke="#0D0C22"/>
+<rect x="39.5" y="50.5" width="4" height="11" fill="white" stroke="#0D0C22"/>
+<rect x="31.5" y="50.5" width="8" height="11" fill="white" stroke="#0D0C22"/>
+<path d="M20.0001 51.5C5.6001 51.5 2.66677 47.1667 3.0001 45C4.0001 45.8333 7.10009 47.3 11.5001 46.5C15.9001 45.7 18.5001 41.5 18.5001 41.5V46.5H52.5001V41.5C52.5001 41.5 56.0001 45.3 60.0001 46.5C64.0001 47.7 67.0001 46 68.5001 45C67.5001 47.5 67.5001 51 54.5001 51.5C46.0064 51.8267 38.0001 51.5 20.0001 51.5Z" fill="#EB5757" stroke="#0D0C22"/>
+<rect x="18.5" y="35.5" width="34" height="11" fill="#2660AB" stroke="#0D0C22"/>
+<rect x="21.5" y="39.5" width="4" height="5" fill="white" stroke="#0D0C22"/>
+<rect x="45.5" y="39.5" width="4" height="5" fill="white" stroke="#0D0C22"/>
+<path d="M28.5 36.5V46.5" stroke="#0D0C22"/>
+<path d="M43 36.5V46.5" stroke="#0D0C22"/>
+<path d="M28.5 39.5H43" stroke="#0D0C22"/>
+<path d="M30.75 46.5V39.5" stroke="#0D0C22"/>
+<path d="M40.75 46V39" stroke="#0D0C22"/>
+<path d="M38.75 46V39" stroke="#0D0C22"/>
+<path d="M36.75 46V39" stroke="#0D0C22"/>
+<path d="M34.75 46V39" stroke="#0D0C22"/>
+<path d="M32.75 46V39" stroke="#0D0C22"/>
+<path d="M23.5 36C14.2905 35.3178 11.8333 31.3333 12 29.5C12.6667 30 14.9 31 18.5 31C22.1 31 25 28.6667 26 27.5L44.5 28C46 28.8333 49.8 30.6 53 31C56.2 31.4 59 30.1667 60 29.5C59.8333 30.3333 58.8 32.4 56 34C52.5 36 37 37 23.5 36Z" fill="#EB5757" stroke="#0D0C22"/>
+<rect x="24.5" y="20.5" width="22" height="11" fill="white" stroke="#0D0C22"/>
+<rect x="27.5" y="25.5" width="16" height="3" fill="#26A9E0" stroke="#0D0C22"/>
+<path d="M27.9997 21.5C17.9997 20.3 16.8331 17 17.4997 15.5C18.1664 16.3333 20.6998 17.7 25.4998 16.5C30.2998 15.3 32.8331 10.6667 33.4998 8.5H37.4998C37.9998 10.1667 40.0998 14.1 44.4998 16.5C48.8998 18.9 52.6664 16.8333 53.9998 15.5C53.9998 16.6667 53.2998 19.2 50.4998 20C46.9998 21 40.4997 23 27.9997 21.5Z" fill="#EB5757" stroke="#0D0C22"/>
+<path d="M35.5 8.5V3.5" stroke="#0D0C22"/>
+<path d="M32 11.5H39" stroke="#0D0C22"/>
+</svg>

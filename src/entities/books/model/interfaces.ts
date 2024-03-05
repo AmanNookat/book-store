@@ -6,7 +6,7 @@ export interface Book {
   publisher: string
   year: number
   pages: number
-  athour: string
+  author: string
   ageLimit: AgeLimit
   category: BookCategory
   rating: number

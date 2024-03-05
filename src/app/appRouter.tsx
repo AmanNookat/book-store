@@ -4,7 +4,9 @@ import { MainPage } from "@/pages/main"
 import { SignInPage, SignUpPage } from "@/pages/auth"
 import { FavoritesPage } from "@/pages/favorites"
 import { CartPage } from "@/pages/cart"
-import { BookPage } from "@/pages/book"
+import { BookPage } from "@/pages/books"
+import { ErrorPage } from "@/pages/error"
+import { ProfilePage } from "@/pages/profile"
 
 interface GuardProps {
   children: React.ReactElement
@@ -29,7 +31,7 @@ const AuthGuard: React.FC<GuardProps> = ({ children }) => {
 export const appRouter = createBrowserRouter([
   {
     element: baseLayout,
-    errorElement: <div>error</div>,
+    // errorElement: <ErrorPage />,
     // loader:
     children: [
       {
@@ -56,7 +58,7 @@ export const appRouter = createBrowserRouter([
         path: "/user/profile",
         element: (
           <GuestGuard>
-            <CartPage />
+            <ProfilePage />
           </GuestGuard>
         ),
       },
@@ -79,6 +81,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/book/:bookId",
         element: <BookPage />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

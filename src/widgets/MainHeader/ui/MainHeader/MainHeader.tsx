@@ -6,7 +6,8 @@ export const MainHeader = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
       <MainSlider />

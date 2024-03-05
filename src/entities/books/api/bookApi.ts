@@ -3,33 +3,26 @@ import { API_ENDPOINTS } from "@/shared/api"
 import { Book } from "../model/interfaces"
 import { instance } from "@/shared/api/instance"
 
-export const getBooks = createAsyncThunk<Book[], void>(
+export const getBooks = createAsyncThunk<Book[]>(
   "books/getBooks",
-  async () => {
-    try {
-      const { data } = await instance.get<Book[]>(API_ENDPOINTS.BOOKS)
-      return data
-    } catch (err) {
-      return Promise.reject(err)
-    }
-  }
+  async () => (await instance.get<Book[]>(API_ENDPOINTS.BOOKS)).data
 )
 
-export const getPopularBooks = createAsyncThunk<Book[], void>(
+export const getPopularBooks = createAsyncThunk<Book[]>(
   "books/getPopularBooks",
-  async () => {
-    try {
-      const { data } = await instance.get<Book[]>(API_ENDPOINTS.BOOKS, {
+  async () =>
+    (
+      await instance.get<Book[]>(API_ENDPOINTS.BOOKS, {
         params: {
-          _page: 1,
-          _limit: 2,
+          _limit: 10,
           _sort: "rating",
           _order: "desc",
         },
       })
-      return data
-    } catch (err) {
-      return Promise.reject(err)
-    }
-  }
+    ).data
+)
+
+export const getOneBook = createAsyncThunk<Book, number>(
+  "books/getOneBook",
+  async (id) => (await instance.get<Book>(`${API_ENDPOINTS.BOOKS}/${id}`)).data
 )

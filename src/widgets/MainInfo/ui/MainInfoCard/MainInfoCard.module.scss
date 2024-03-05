@@ -1,0 +1,24 @@
+@import "@/shared/colors";
+@import "@/shared/breakpoints";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 380px;
+  padding: 10px 30px;
+  border: 2px solid $border-color;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $main-color;
+    color: #fff;
+    transition: 0.3s;
+  }
+
+  img {
+    width: 72px;
+    height: 72px;
+  }
+}

@@ -1,0 +1,143 @@
+@import "@/shared/colors";
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+
+  .left {
+    width: 80%;
+
+    .left_top {
+      display: flex;
+      gap: 50px;
+
+      .img_block {
+        margin-top: 20px;
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          height: 100px;
+          .mapped_img {
+            width: 60px;
+          }
+          div {
+            height: 100px;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #d9d9d9;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .info_block {
+        h1 {
+          margin-bottom: 30px;
+        }
+
+        .category {
+          text-transform: uppercase;
+          color: #fff;
+          background-color: #785eea;
+          padding: 7px;
+          border-radius: 3px;
+        }
+
+        .rating_block {
+          display: flex;
+          gap: 20px;
+          margin: 20px 0;
+        }
+
+        .book_info {
+          display: flex;
+          justify-content: space-between;
+
+          div p {
+            margin-bottom: 10px;
+          }
+
+          .book_keys {
+            color: #707783;
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+    .left_bottom {
+      margin-top: 30px;
+    }
+  }
+
+  .right {
+    width: 35%;
+    border: 2px solid $border-color;
+    height: 80%;
+    padding: 50px 30px;
+
+    .price {
+      color: $danger-color;
+      margin-bottom: 30px;
+    }
+
+    @mixin stoke($color) {
+      color: $color;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .in_stoke {
+      @include stoke($stoke-color);
+    }
+
+    .not_available {
+      @include stoke($danger-color);
+    }
+
+    .delivery {
+      margin-top: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+
+      button:first-child {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        padding: 25px 0;
+      }
+      button:last-child {
+        padding: 25px 10px;
+      }
+    }
+  }
+}

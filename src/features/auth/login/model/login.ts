@@ -1,5 +1,4 @@
-import { API_ENDPOINTS } from "@/shared/api"
-import { instance } from "@/shared/api/instance"
+import { findUser } from "@/entities/users/api/usersApi"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 interface User {
@@ -8,23 +7,18 @@ interface User {
   id?: number
 }
 
-export const loginThunk = createAsyncThunk<User, User, { rejectValue: string }>(
+export const loginThunk = createAsyncThunk(
   "auth/login",
-  async (loginUser: User, { rejectWithValue }) => {
+  async (loginUser: User, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await instance.get<User[]>(API_ENDPOINTS.USERS)
-      const checkUser = data.find(
-        (user: User) => user.email === loginUser.email
-      )
-      console.log(checkUser)
+      const checkUser = await dispatch(findUser(loginUser.email))
 
-      if (checkUser) {
-        return checkUser
-      } else {
-        return rejectWithValue("Пользователь не найден")
+      if ((checkUser.payload as User).password === loginUser.password) {
+        return checkUser.payload
       }
+      return rejectWithValue("Пользователь не найден")
     } catch (err) {
-      return Promise.reject(err)
+      return rejectWithValue((err as Error).message)
     }
   }
 )

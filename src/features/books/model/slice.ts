@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { Book, BooksInitStateKey } from "@/entities/books/model/interfaces"
-import { getPopularBooks } from "@/entities/books/api/bookApi"
+import { getOneBook, getPopularBooks } from "@/entities/books/api/bookApi"
 
 interface InitState {
   books: BooksInitStateKey<Book[]>
@@ -43,6 +43,18 @@ export const booksSlice = createSlice({
       .addCase(getPopularBooks.rejected, (state) => {
         state.popularBooks.error = true
         state.popularBooks.loading = false
+      })
+      //? get one book
+      .addCase(getOneBook.pending, (state) => {
+        state.book.loading = true
+      })
+      .addCase(getOneBook.fulfilled, (state, action) => {
+        state.book.data = action.payload
+        state.book.loading = false
+      })
+      .addCase(getOneBook.rejected, (state) => {
+        state.book.error = true
+        state.book.loading = false
       })
   },
 })

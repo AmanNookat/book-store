@@ -1,46 +1,44 @@
 import { useNavigate } from "react-router-dom"
 import { Book } from "../../model/interfaces"
-import { Button } from "@/shared/ui"
+import { Button, Icon } from "@/shared/ui"
+import style from "./BookCard.module.scss"
+import cn from "classnames"
 
 interface Props {
   book: Book
   actionSlot?: React.ReactNode
-  bottomContentSlot?: React.ReactNode
+  cartContentSlot?: React.ReactNode
   size?: "s" | "m"
 }
 
 export const BookCard: React.FC<Props> = (props) => {
-  const { size = "m", book, actionSlot, bottomContentSlot } = props
+  const { size = "m", book, actionSlot, cartContentSlot } = props
   const navigate = useNavigate()
 
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className={cn(style.root, "shadow")}>
       <div>
-        <img
-          src={book.coverImg}
+        <div
+          className={style.image}
           onClick={() => navigate(`/book/${book.id}`)}
-          width="200"
-        />
-        <p>{book.price}</p>
-        <p>{book.title}</p>
-        <p>{book.athour}</p>
-      </div>
-      <Button>Купить</Button>
-      {bottomContentSlot && <div>{bottomContentSlot}</div>}
-      {actionSlot && <div>{actionSlot}</div>}
-      {/* <div>
-        <p>{book.rating}</p>
+          style={{ backgroundImage: `url(${book.coverImg})` }}
+        ></div>
         <div>
-          <button>Купить</button>
-          <button>⭐</button>
+          <p className={cn(style.price, "text-bold", "text-lg")}>
+            {book.price}с
+          </p>
+          <h3>{book.title}</h3>
+          <p className={style.author}>{book.author}</p>
         </div>
-      </div> */}
+      </div>
+      <div className={style.card_bottom}>
+        {cartContentSlot ? (
+          <div>{cartContentSlot}</div>
+        ) : (
+          <Button>Купить</Button>
+        )}
+        {actionSlot && <div>{actionSlot}</div>}
+      </div>
     </div>
   )
 }

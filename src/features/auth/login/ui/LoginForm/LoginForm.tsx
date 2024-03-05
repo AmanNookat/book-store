@@ -2,10 +2,12 @@ import { useForm } from "react-hook-form"
 import { LoginFormSchema, loginFormSchema } from "../../model/loginFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
-import { useAppDispatch } from "@/shared/model/hooks"
+import { useAppDispatch } from "@/shared/model"
 import { loginThunk } from "../../model/login"
 import { Link } from "react-router-dom"
 import { Button, Input } from "@/shared/ui"
+import style from "./LoginForm.module.scss"
+import cn from "classnames"
 
 interface Props {
   onComplete?: () => void
@@ -42,39 +44,38 @@ export const LoginForm: React.FC<Props> = ({ onComplete }) => {
   )
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <div>
-        <div>
+    <div className={cn(style.root, "shadow")}>
+      <h1>Войти</h1>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <div className={style.form_input}>
           <label>Email</label>
+          <Input
+            type="email"
+            placeholder="Введите email"
+            variant="outline"
+            register={register("email")}
+          />
+          <p className="text-sm">{errors.email?.message}</p>
         </div>
-        <Input
-          type="email"
-          placeholder="Введите email"
-          variant="outline"
-          register={register("email")}
-        />
-        <div>{errors.email?.message}</div>
-      </div>
-      <div>
-        <div>
-          <label>Password</label>
+        <div className={style.form_input}>
+          <label>Пароль</label>
+          <Input
+            type="password"
+            placeholder="Введите пароль"
+            variant="outline"
+            register={register("password")}
+          />
+          {errors.password && (
+            <p className="text-sm">{errors.password?.message}</p>
+          )}
         </div>
-        <Input
-          type="password"
-          placeholder="Введите пароль"
-          variant="outline"
-          register={register("password")}
-        />
-        {errors.password && (
-          <p className="text-xs">{errors.password?.message}</p>
-        )}
-        <div>
-          <Button type="submit">Войти</Button>
-        </div>
-        <p>
+        <Button type="submit" className="text-bold">
+          Войти
+        </Button>
+        <p className={style.tip}>
           Нет аккаунта? <Link to="/sign-up">Создать</Link>
         </p>
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }
