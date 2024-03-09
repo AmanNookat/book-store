@@ -11,6 +11,7 @@
     "server": "npx json-server -w db.json -p 7777 -d 0"
   },
   "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.13",
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",

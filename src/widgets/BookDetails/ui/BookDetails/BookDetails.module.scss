@@ -38,6 +38,7 @@
 
       .info_block {
         h1 {
+          line-height: 40px;
           margin-bottom: 30px;
         }
 
@@ -57,7 +58,6 @@
 
         .book_info {
           display: flex;
-          justify-content: space-between;
 
           div p {
             margin-bottom: 10px;

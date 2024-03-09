@@ -9,11 +9,11 @@ export interface Book {
   author: string
   ageLimit: AgeLimit
   category: BookCategory
-  rating: number
+  rating?: number
   description: string
   sale?: number
   quantity: number
-  id: Id
+  id?: Id
 }
 
 export interface BooksInitStateKey<T> {

@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/features/auth/register"
+import { RegisterForm } from "@/features/users/register"
 import style from "./SignUpPage.module.scss"
 
 export const SignUpPage = () => {

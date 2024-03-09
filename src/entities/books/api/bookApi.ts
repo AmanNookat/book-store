@@ -26,3 +26,17 @@ export const getOneBook = createAsyncThunk<Book, number>(
   "books/getOneBook",
   async (id) => (await instance.get<Book>(`${API_ENDPOINTS.BOOKS}/${id}`)).data
 )
+
+export const addBook = createAsyncThunk("books/addBook", async (data: Book) => {
+  const bookObj: Book = {
+    ...data,
+    pages: +data.pages,
+    price: +data.price,
+    year: +data.year,
+    quantity: +data.quantity,
+    images: [],
+    sale: 0,
+    rating: 0,
+  }
+  await instance.post(API_ENDPOINTS.BOOKS, bookObj)
+})

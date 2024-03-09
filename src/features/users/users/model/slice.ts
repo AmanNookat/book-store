@@ -1,7 +1,8 @@
-import { User } from "@/entities/users/model/interfaces"
 import { createSlice } from "@reduxjs/toolkit"
-import { loginThunk } from "../../login/model/login"
 import { saveAuth } from "@/shared/lib/auth"
+import { User } from "../api/interfaces"
+import { getUser } from "../api/usersApi"
+import { loginThunk } from "../../login"
 
 interface InitState {
   user: {
@@ -19,8 +20,8 @@ const initialState: InitState = {
   },
 }
 
-export const authSlice = createSlice({
-  name: "auth",
+export const usersSlice = createSlice({
+  name: "users",
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -37,6 +38,18 @@ export const authSlice = createSlice({
       .addCase(loginThunk.rejected, (state) => {
         state.user.loading = false
         state.user.error = true
+      })
+      //? get user
+      .addCase(getUser.pending, (state) => {
+        state.user.loading = true
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user.data = action.payload || null
+        state.user.loading = false
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.user.loading = false
+        state.user.error = false
       })
   },
 })

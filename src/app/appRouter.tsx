@@ -7,23 +7,24 @@ import { CartPage } from "@/pages/cart"
 import { BookPage } from "@/pages/books"
 import { ErrorPage } from "@/pages/error"
 import { ProfilePage } from "@/pages/profile"
+import { getAuth } from "@/shared/lib/auth"
 
 interface GuardProps {
   children: React.ReactElement
 }
 
 const GuestGuard: React.FC<GuardProps> = ({ children }) => {
-  // const isAuth = localStorage.getItem("readonly")
+  const isAuth = getAuth()
 
-  // if (!isAuth) return <Navigate to="/sign-in" />
+  if (!isAuth) return <Navigate to="/sign-in" />
 
   return children
 }
 
 const AuthGuard: React.FC<GuardProps> = ({ children }) => {
-  // const isAuth = localStorage.getItem("readonly")
+  const isAuth = getAuth()
 
-  // if (isAuth) return <Navigate to="/" />
+  if (isAuth) return <Navigate to="/" />
 
   return children
 }
@@ -31,8 +32,6 @@ const AuthGuard: React.FC<GuardProps> = ({ children }) => {
 export const appRouter = createBrowserRouter([
   {
     element: baseLayout,
-    // errorElement: <ErrorPage />,
-    // loader:
     children: [
       {
         path: "/",

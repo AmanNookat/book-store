@@ -1,6 +1,6 @@
-import { LoginForm } from "@/features/auth/login"
 import { useCallback } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
+import { LoginForm } from "@/features/users/login"
 import style from "./SignInPage.module.scss"
 
 export const SignInPage = () => {

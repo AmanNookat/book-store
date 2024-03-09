@@ -7,7 +7,7 @@ export type IconType =
   | "liked"
   | "user"
   | "loader"
-  | "x"
+  | "cross"
   | "chevronDown"
   | "toggleRight"
   | "trash"

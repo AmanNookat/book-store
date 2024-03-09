@@ -3,6 +3,7 @@ import { Book } from "../../model/interfaces"
 import { Button, Icon } from "@/shared/ui"
 import style from "./BookCard.module.scss"
 import cn from "classnames"
+import { textCut } from "@/shared/lib/text-cut"
 
 interface Props {
   book: Book
@@ -27,7 +28,7 @@ export const BookCard: React.FC<Props> = (props) => {
           <p className={cn(style.price, "text-bold", "text-lg")}>
             {book.price}с
           </p>
-          <h3>{book.title}</h3>
+          <h3> {textCut(book.title)}</h3>
           <p className={style.author}>{book.author}</p>
         </div>
       </div>
