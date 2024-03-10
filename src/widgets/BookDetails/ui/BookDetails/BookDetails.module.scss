@@ -37,6 +37,7 @@
       }
 
       .info_block {
+        position: relative;
         h1 {
           line-height: 40px;
           margin-bottom: 30px;
@@ -48,6 +49,13 @@
           background-color: #785eea;
           padding: 7px;
           border-radius: 3px;
+        }
+
+        .edit {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          right: 0;
         }
 
         .rating_block {
@@ -137,6 +145,20 @@
       }
       button:last-child {
         padding: 25px 10px;
+      }
+    }
+
+    .admin_btns {
+      display: flex;
+      gap: 15px;
+
+      button {
+        font-weight: 700;
+        text-transform: uppercase;
+
+        &:last-child {
+          background-color: $danger-color;
+        }
       }
     }
   }

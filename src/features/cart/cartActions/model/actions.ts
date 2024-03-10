@@ -32,21 +32,20 @@ export const countCartTotalCost = (cartBooks: CartBookObj[]) =>
     return acc + currVal.totalPrice
   }, 0)
 
-export const toggleBookToCart = (bookObj: CartBookItem) => {
-  console.log("a")
+export const addBookToCart = (bookObj: CartBookItem) => {
   const cart = getCartData()
 
-  if (checkBookInCart(bookObj.id)) {
-    cart.books = cart.books.filter(
-      (book: CartBookObj) => book.bookItem.id !== bookObj.id
-    )
-  } else {
-    cart.books.push({
-      count: 1,
-      totalPrice: +bookObj.price,
-      bookItem: bookObj,
-    })
-  }
+  // if (checkBookInCart(bookObj.id)) {
+  //   cart.books = cart.books.filter(
+  //     (book: CartBookObj) => book.bookItem.id !== bookObj.id
+  //   )
+  // } else {
+  cart.books.push({
+    count: 1,
+    totalPrice: +bookObj.price,
+    bookItem: bookObj,
+  })
+  // }
   cart.totalCost = countCartTotalCost(cart.books)
   setCartData(cart)
 }
@@ -54,6 +53,7 @@ export const toggleBookToCart = (bookObj: CartBookItem) => {
 export const changeCountBooksInCart = (bookId: number, count: number) => {
   if (count < 0)
     return notify("Число не может быть отрицательным", NOTIFY_TYPES.error)
+  if (count === 0) return deleteBookFromCart(bookId)
   const cart = getCartData()
   cart.books = cart.books.map((book: CartBookObj) => {
     if (book.bookItem.id === bookId) {
@@ -78,15 +78,3 @@ export const deleteBookFromCart = (bookId: number) => {
 export const cleanCart = () => {
   localStorage.removeItem("Rcart")
 }
-
-// export const createOrder = createAsyncThunk(
-//   "cart/createOrder",
-//   async ({ userCardData }) => {
-//     const cart = getCartData()
-//     const order = { ...cart, cardData: userCardData }
-//     if (!cart.cards.length) return
-//     await axios.post(ORDERS_API, order)
-//     notify("Заказ отправлен на рассмотрение")
-//     cleanCart()
-//   }
-// )

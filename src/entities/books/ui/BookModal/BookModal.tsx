@@ -1,23 +1,27 @@
 import { useAppDispatch } from "@/shared/model"
 import { Button, Input, Modal } from "@/shared/ui"
-import { useCallback } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { addBook } from "../../api/bookApi"
-import { Select } from "@/shared/ui/Select/Select"
 import { ageLimits, bookCategories } from "@/shared/lib/constants/book-keys"
+import { AgeLimit, Book, BookCategory } from "../.."
+import { Select } from "@/shared/ui/Select/Select"
 
 interface Props {
   title: string
   onConfirm?: () => void
   onCancel: () => void
   confirmText: string
+  book?: Book
 }
 
 export const AdminModalPresenter: React.FC<Props> = ({
   title,
   onCancel,
   confirmText,
+  book,
 }) => {
+  const [editedBook, setEditedBook] = useState<Book | null>(null)
   const dispatch = useAppDispatch()
   const { handleSubmit, register, reset } = useForm()
 
@@ -27,62 +31,78 @@ export const AdminModalPresenter: React.FC<Props> = ({
       .then(() => reset())
   }, [])
 
+  useEffect(() => {
+    book && setEditedBook(book)
+  }, [])
+
+  console.log("render")
+
+  const handleInputChange = (field: keyof Book, value: string | number) => {
+    if (book) {
+      setEditedBook({ ...editedBook!, [field]: value })
+    }
+  }
+
   return (
     <Modal>
       <h2>{title}</h2>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
-        <div>
-          <label>Название</label>
-          <Input register={register("title")} />
-        </div>
-        <div>
-          <label>Автор</label>
-          <Input register={register("author")} />
-        </div>
-        <div>
-          <label>Возрастное ограничение</label>
-          <Select
-            title="возраст"
-            options={ageLimits}
-            register={register("ageLimit")}
-          />
-        </div>
-        <div>
-          <label>Категория</label>
-          <Select
-            title="категория"
-            options={bookCategories}
-            register={register("category")}
-          />
-        </div>
-        <div>
-          <label>Обложка</label>
-          <Input register={register("coverImg")} />
-        </div>
-        <div>
-          <label>Цена</label>
-          <Input type="number" register={register("price")} />
-        </div>
-        <div>
-          <label>Страниц</label>
-          <Input type="number" register={register("pages")} />
-        </div>
-        <div>
-          <label>Издатель</label>
-          <Input register={register("publisher")} />
-        </div>
-        <div>
-          <label>Год</label>
-          <Input type="number" register={register("year")} />
-        </div>
-        <div>
-          <label>Количество</label>
-          <Input type="number" register={register("quantity")} />
-        </div>
-        <div>
-          <label>Описание</label>
-          <Input register={register("description")} />
-        </div>
+        {Object.entries({
+          title: "Название",
+          author: "Автор",
+          ageLimit: "Возрастное ограничение",
+          category: "Категория",
+          coverImg: "Обложка",
+          price: "Цена",
+          pages: "Страниц",
+          publisher: "Издатель",
+          year: "Год",
+          quantity: "Количество",
+          description: "Описание",
+        }).map(([field, label]) => (
+          <div key={field}>
+            <label>{label}</label>
+            {field === "ageLimit" || field === "category" ? (
+              <Select
+                title={field === "ageLimit" ? "возраст" : "категория"}
+                options={field === "ageLimit" ? ageLimits : bookCategories}
+                register={register(field)}
+                value={book && editedBook?.[field]}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  handleInputChange(
+                    field as keyof Book,
+                    e.target.value as string
+                  )
+                }
+              />
+            ) : (
+              <Input
+                type={
+                  field === "price" ||
+                  field === "pages" ||
+                  field === "year" ||
+                  field === "quantity"
+                    ? "number"
+                    : "text"
+                }
+                register={register(field)}
+                // @ts-ignore
+                value={book && editedBook?.[field]}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleInputChange(
+                    field as keyof Book,
+                    field === "price" ||
+                      field === "pages" ||
+                      field === "year" ||
+                      field === "quantity"
+                      ? +e.target.value
+                      : e.target.value
+                  )
+                }
+              />
+            )}
+          </div>
+        ))}
         <div>
           <Button onClick={onCancel}>Отмена</Button>
           <Button type="submit">{confirmText}</Button>

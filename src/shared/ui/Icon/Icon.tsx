@@ -17,6 +17,7 @@ export type IconType =
   | "favorites"
   | "cart"
   | "bookmark"
+  | "edit"
 
 interface Props {
   className?: string

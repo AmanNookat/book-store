@@ -8,6 +8,7 @@ import { BookPage } from "@/pages/books"
 import { ErrorPage } from "@/pages/error"
 import { ProfilePage } from "@/pages/profile"
 import { getAuth } from "@/shared/lib/auth"
+import { OrdersPage } from "@/pages/orders/ui/Page/Page"
 
 interface GuardProps {
   children: React.ReactElement
@@ -74,6 +75,14 @@ export const appRouter = createBrowserRouter([
         element: (
           <GuestGuard>
             <CartPage />
+          </GuestGuard>
+        ),
+      },
+      {
+        path: "/user/orders",
+        element: (
+          <GuestGuard>
+            <OrdersPage />
           </GuestGuard>
         ),
       },

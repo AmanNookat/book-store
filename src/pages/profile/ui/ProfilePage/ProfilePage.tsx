@@ -31,7 +31,7 @@ export const ProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    email ? dispatch(getUser(email)) : null
+    email && dispatch(getUser(email))
   }, [])
 
   return (

@@ -1,14 +1,47 @@
 import { Book } from "@/entities/books"
 import { Button, Icon } from "@/shared/ui"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { getAuth } from "@/shared/lib/auth"
+import { useAppDispatch, useAppSelector } from "@/shared/model"
+import { getUser } from "@/features/users/users/api/usersApi"
+import { useCallback, useEffect } from "react"
 import style from "./BookDetails.module.scss"
 import cn from "classnames"
+import { deleteBook } from "@/entities/books/api/bookApi"
+import { useCustomModal } from "@/shared/lib/useCustomModal"
+import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
 
 interface Props {
   book: Book
 }
 
 export const BookDetails: React.FC<Props> = ({ book }) => {
+  const { data, loading, error } = useAppSelector((state) => state.users.user)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const email = getAuth()
+  const editBookModal = useCustomModal(AdminModalPresenter)
+
+  const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    editBookModal.show({
+      // @ts-ignore
+      title: "Добавить новую книгу",
+      confirmText: "Добавить",
+      book: book,
+      onConfirm: () => {
+        editBookModal.remove()
+      },
+      onCancel: () => editBookModal.remove(),
+    })
+  }, [])
+
+  useEffect(() => {
+    email ? dispatch(getUser(email)) : null
+  }, [])
+
   return (
     <div className={style.root}>
       <div className={style.left}>
@@ -30,6 +63,7 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
             <Link to="/" className={cn(style.category, "text-sm", "text-bold")}>
               {book?.category}
             </Link>
+
             <div className={style.rating_block}>
               <p>Рейтинг: {book?.rating}</p>
               <p>Оценить</p>
@@ -60,12 +94,14 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
       </div>
       <div className={style.right}>
         <p className={cn(style.price, "text-5xl")}>{book?.price}с</p>
+
         <div className={style.buttons}>
           <Button disabled={book?.quantity ? false : true}>Купить</Button>
           <Button>
             <Icon type="favorites" />
           </Button>
         </div>
+
         {book?.quantity > 0 ? (
           <p className={style.in_stoke}>
             <img src="/images/check-mark.svg" alt="" /> В наличии
@@ -88,6 +124,22 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
             <img src="/images/delivery.svg" alt="" />
             <p>Пункты выдачи</p>
           </div>
+          {data?.isAdmin && (
+            <div className={style.admin_btns}>
+              <Button theme="primary" onClick={onClick}>
+                Изменить
+              </Button>
+              <Button
+                theme="primary"
+                onClick={() => {
+                  dispatch(deleteBook(book.id!))
+                  navigate("/")
+                }}
+              >
+                Удалить
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

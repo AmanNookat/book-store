@@ -1,9 +1,8 @@
 import React from "react"
-import { CartBookItem, CartBookObj } from "../.."
+import { CartBookItem } from "../.."
 
 interface Props {
   cartBook: CartBookItem
-  key: number
 }
 
 export const CartBookCard: React.FC<Props> = ({ cartBook }) => {

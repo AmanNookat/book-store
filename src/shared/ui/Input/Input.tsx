@@ -5,7 +5,7 @@ interface Props extends React.HTMLAttributes<HTMLInputElement> {
   placeholder?: string
   register?: any
   type?: string
-  value?: string
+  value?: string | number
   variant?: "primary" | "outline"
 }
 

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { API_ENDPOINTS } from "@/shared/api"
 import { Book } from "../model/interfaces"
 import { instance } from "@/shared/api/instance"
+import { deleteBookFromCart } from "@/features/cart"
 
 export const getBooks = createAsyncThunk<Book[]>(
   "books/getBooks",
@@ -40,3 +41,10 @@ export const addBook = createAsyncThunk("books/addBook", async (data: Book) => {
   }
   await instance.post(API_ENDPOINTS.BOOKS, bookObj)
 })
+
+export const deleteBook = createAsyncThunk(
+  "books/deleteBook",
+  async (bookId: number) => {
+    await instance.delete(`${API_ENDPOINTS.BOOKS}/${bookId}`)
+  }
+)

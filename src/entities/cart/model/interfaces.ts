@@ -6,7 +6,7 @@ export interface CartBookObj {
 
 export interface CartBookItem {
   title: string
-  coverImage: Url
+  coverImg: Url
   price: Som
   author: string
   id: number
@@ -14,6 +14,6 @@ export interface CartBookItem {
 
 export interface Cart {
   user: string
-  totalPrice: Som
+  totalCost: Som
   books: CartBookObj[]
 }
