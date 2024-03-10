@@ -41,7 +41,7 @@ export const BookList: React.FC<Props<Book>> = (props) => {
           }
           actionSlot={
             props.bookCardActionsSlot
-              ? props.bookCardActionsSlot(book.id)
+              ? props.bookCardActionsSlot(book.id!)
               : isAuthorized && <AddToFavoritesButton />
           }
         />

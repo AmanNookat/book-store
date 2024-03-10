@@ -1,14 +1,17 @@
 import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
 import { getUser } from "@/features/users/users/api/usersApi"
+import { logout } from "@/features/users/users/model/slice"
 import { getAuth } from "@/shared/lib/auth"
 import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { Button } from "@/shared/ui"
 import { useCallback, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const ProfilePage = () => {
   const { data, loading, error } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const email = getAuth()
   const addBookModal = useCustomModal(AdminModalPresenter)
 
@@ -51,6 +54,7 @@ export const ProfilePage = () => {
           Добавить книгу
         </Button>
       )}
+      <Button onClick={() => dispatch(logout(navigate))}>Выйти</Button>
     </div>
   )
 }

@@ -7,7 +7,7 @@ interface NavLinks {
 }
 
 export const navbarLinks: NavLinks[] = [
-  { text: "Заказы", iconName: "orders", url: "/orders" },
-  { text: "Закладки", iconName: "bookmark", url: "/favorites" },
-  { text: "Корзина", iconName: "cart", url: "/cart" },
+  { text: "Заказы", iconName: "orders", url: "/user/orders" },
+  { text: "Закладки", iconName: "bookmark", url: "/user/favorites" },
+  { text: "Корзина", iconName: "cart", url: "/user/cart" },
 ]

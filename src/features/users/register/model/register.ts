@@ -2,6 +2,7 @@ import { API_ENDPOINTS } from "@/shared/api"
 import { instance } from "@/shared/api/instance"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { getUser } from "../../users/api/usersApi"
+import { notify } from "@/shared/lib"
 
 interface User {
   email: string
@@ -26,7 +27,7 @@ export const registerThunk = createAsyncThunk(
         about: "",
       }
       await instance.post(API_ENDPOINTS.USERS, userObj)
-      alert("Успешно")
+      notify("Регистрация прошла успешно")
       return userObj
     } catch (err) {
       return Promise.reject(err)

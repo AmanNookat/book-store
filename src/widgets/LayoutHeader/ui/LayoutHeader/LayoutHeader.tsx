@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { Button, Icon, Input } from "@/shared/ui"
 import { Logo } from "../.."
-import style from "./LayoutHeader.module.scss"
 import { navbarLinks } from "@/shared/lib"
 import { getAuth } from "@/shared/lib/auth"
+import style from "./LayoutHeader.module.scss"
 
 export const LayoutHeader = () => {
   const isAuth = getAuth()

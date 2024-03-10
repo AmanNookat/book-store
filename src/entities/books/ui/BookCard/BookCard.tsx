@@ -1,20 +1,29 @@
 import { useNavigate } from "react-router-dom"
 import { Book } from "../../model/interfaces"
-import { Button, Icon } from "@/shared/ui"
+import { Button } from "@/shared/ui"
+import { textCut } from "@/shared/lib"
 import style from "./BookCard.module.scss"
 import cn from "classnames"
-import { textCut } from "@/shared/lib/text-cut"
+import { toggleBookToCart } from "@/features/cart"
+import { CartBookItem } from "@/entities/cart"
 
 interface Props {
   book: Book
   actionSlot?: React.ReactNode
-  cartContentSlot?: React.ReactNode
   size?: "s" | "m"
 }
 
 export const BookCard: React.FC<Props> = (props) => {
-  const { size = "m", book, actionSlot, cartContentSlot } = props
+  const { size = "m", book, actionSlot } = props
   const navigate = useNavigate()
+
+  const cartBook: CartBookItem = {
+    title: book.title,
+    author: book.author,
+    coverImage: book.coverImg,
+    price: book.price,
+    id: +book.id!,
+  }
 
   return (
     <div className={cn(style.root, "shadow")}>
@@ -33,11 +42,7 @@ export const BookCard: React.FC<Props> = (props) => {
         </div>
       </div>
       <div className={style.card_bottom}>
-        {cartContentSlot ? (
-          <div>{cartContentSlot}</div>
-        ) : (
-          <Button>Купить</Button>
-        )}
+        <Button onClick={() => toggleBookToCart(cartBook)}>Купить</Button>
         {actionSlot && <div>{actionSlot}</div>}
       </div>
     </div>

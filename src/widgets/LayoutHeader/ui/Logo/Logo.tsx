@@ -5,8 +5,7 @@ import cn from "classnames"
 export const Logo = () => {
   return (
     <Link to="/" className={cn(style.root, "text-2xl", "text-bold")}>
-      <div>📚</div>
-      <p>Readonly</p>
+      <img src="/images/logo.png" alt="logo" />
     </Link>
   )
 }
