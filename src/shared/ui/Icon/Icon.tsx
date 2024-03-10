@@ -15,6 +15,7 @@ export type IconType =
   | "search"
   | "orders"
   | "favorites"
+  | "favorites-full"
   | "cart"
   | "bookmark"
   | "edit"

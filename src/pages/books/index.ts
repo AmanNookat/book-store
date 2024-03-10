@@ -1,1 +1,1 @@
-export { BookPage } from "./ui/Page/Page"
+export { BookPage } from "./ui/Page/BookPage"

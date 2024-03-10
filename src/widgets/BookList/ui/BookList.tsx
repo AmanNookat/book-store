@@ -1,8 +1,9 @@
 import { BookCard } from "@/entities/books"
 import { Book } from "@/entities/books/model/interfaces"
-import { AddToFavoritesButton } from "@/features/favorites"
 import style from "./BookList.module.scss"
 import { useEffect, useRef } from "react"
+import { getAuth } from "@/shared/lib/auth"
+import { FavoriteButton } from "@/features/favorites/favoritesActions/ui/FavoriteButton"
 
 interface Props<T extends Book> {
   books: T[]
@@ -25,7 +26,7 @@ export const BookList: React.FC<Props<Book>> = (props) => {
   //   })
   // }, [])
 
-  const isAuthorized = false
+  const isAuthorized = getAuth()
 
   return (
     <div ref={list} className={style.root}>
@@ -34,15 +35,19 @@ export const BookList: React.FC<Props<Book>> = (props) => {
           size={size}
           key={book.id}
           book={book}
-          cartContentSlot={
-            props.bookCardBottomSlot
-              ? props.bookCardBottomSlot(book)
-              : undefined
-          }
           actionSlot={
             props.bookCardActionsSlot
               ? props.bookCardActionsSlot(book.id!)
-              : isAuthorized && <AddToFavoritesButton />
+              : isAuthorized && (
+                  <FavoriteButton
+                    book={{
+                      title: book.title,
+                      author: book.author,
+                      coverImg: book.coverImg,
+                      id: book.id!,
+                    }}
+                  />
+                )
           }
         />
       ))}

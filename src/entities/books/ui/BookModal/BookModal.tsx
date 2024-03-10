@@ -9,7 +9,7 @@ import { Select } from "@/shared/ui/Select/Select"
 
 interface Props {
   title: string
-  onConfirm?: () => void
+  onConfirm?: (arg?: Book) => void
   onCancel: () => void
   confirmText: string
   book?: Book
@@ -17,6 +17,7 @@ interface Props {
 
 export const AdminModalPresenter: React.FC<Props> = ({
   title,
+  onConfirm,
   onCancel,
   confirmText,
   book,
@@ -25,17 +26,22 @@ export const AdminModalPresenter: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const { handleSubmit, register, reset } = useForm()
 
-  const onSubmitHandler = useCallback(async (data: any) => {
-    await dispatch(addBook(data))
-      .unwrap()
-      .then(() => reset())
-  }, [])
+  const onSubmitHandler = useCallback(
+    async (data: any) => {
+      if (book) {
+        onConfirm!(editedBook!)
+        return
+      }
+      await dispatch(addBook(data))
+        .unwrap()
+        .then(() => reset())
+    },
+    [editedBook]
+  )
 
   useEffect(() => {
     book && setEditedBook(book)
   }, [])
-
-  console.log("render")
 
   const handleInputChange = (field: keyof Book, value: string | number) => {
     if (book) {

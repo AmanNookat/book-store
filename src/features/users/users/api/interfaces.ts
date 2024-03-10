@@ -6,5 +6,6 @@ export interface User {
   image: Url
   age: number
   about: string
+  favorites: any[]
   id?: number
 }

@@ -44,7 +44,14 @@ export const addBook = createAsyncThunk("books/addBook", async (data: Book) => {
 
 export const deleteBook = createAsyncThunk(
   "books/deleteBook",
-  async (bookId: number) => {
+  async (bookId: number) =>
     await instance.delete(`${API_ENDPOINTS.BOOKS}/${bookId}`)
+)
+
+export const editBook = createAsyncThunk(
+  "books/editBook",
+  async (editedBook: Book, { dispatch }) => {
+    await instance.patch(`${API_ENDPOINTS.BOOKS}/${editedBook.id}`, editedBook)
+    dispatch(getOneBook(editedBook.id!))
   }
 )

@@ -7,8 +7,6 @@ import { useNavigate, useParams } from "react-router-dom"
 export const BookPage = () => {
   const { bookId } = useParams<string>()
   const dispatch = useAppDispatch()
-  // const navigate = useNavigate()
-
   const { data, loading, error } = useAppSelector((state) => state.books.book)
 
   useEffect(() => {

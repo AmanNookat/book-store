@@ -7,7 +7,7 @@ import { getUser } from "@/features/users/users/api/usersApi"
 import { useCallback, useEffect } from "react"
 import style from "./BookDetails.module.scss"
 import cn from "classnames"
-import { deleteBook } from "@/entities/books/api/bookApi"
+import { deleteBook, editBook } from "@/entities/books/api/bookApi"
 import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
 
@@ -28,10 +28,11 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
 
     editBookModal.show({
       // @ts-ignore
-      title: "Добавить новую книгу",
-      confirmText: "Добавить",
+      title: "Редактировать книгу",
+      confirmText: "Сохранить",
       book: book,
-      onConfirm: () => {
+      onConfirm: (editedBook: Book) => {
+        dispatch(editBook(editedBook))
         editBookModal.remove()
       },
       onCancel: () => editBookModal.remove(),

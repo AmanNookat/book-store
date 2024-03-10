@@ -4,11 +4,12 @@ import { MainPage } from "@/pages/main"
 import { SignInPage, SignUpPage } from "@/pages/auth"
 import { FavoritesPage } from "@/pages/favorites"
 import { CartPage } from "@/pages/cart"
-import { BookPage } from "@/pages/books"
 import { ErrorPage } from "@/pages/error"
 import { ProfilePage } from "@/pages/profile"
 import { getAuth } from "@/shared/lib/auth"
 import { OrdersPage } from "@/pages/orders/ui/Page/Page"
+import { CatalogPage } from "@/pages/books/ui/Page/CatalogPage"
+import { BookPage } from "@/pages/books"
 
 interface GuardProps {
   children: React.ReactElement
@@ -55,40 +56,49 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/user/profile",
-        element: (
-          <GuestGuard>
-            <ProfilePage />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "/user/favorites",
-        element: (
-          <GuestGuard>
-            <FavoritesPage />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "/user/cart",
-        element: (
-          <GuestGuard>
-            <CartPage />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "/user/orders",
-        element: (
-          <GuestGuard>
-            <OrdersPage />
-          </GuestGuard>
-        ),
+        path: "/user",
+        children: [
+          {
+            path: "profile",
+            element: (
+              <GuestGuard>
+                <ProfilePage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "favorites",
+            element: (
+              <GuestGuard>
+                <FavoritesPage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "cart",
+            element: (
+              <GuestGuard>
+                <CartPage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "orders",
+            element: (
+              <GuestGuard>
+                <OrdersPage />
+              </GuestGuard>
+            ),
+          },
+        ],
       },
       {
         path: "/book/:bookId",
         element: <BookPage />,
+      },
+      {
+        path: "/catalog",
+        element: <CatalogPage />,
       },
       {
         path: "*",

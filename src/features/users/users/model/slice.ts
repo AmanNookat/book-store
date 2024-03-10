@@ -4,6 +4,7 @@ import { User } from "../api/interfaces"
 import { getUser } from "../api/usersApi"
 import { loginThunk } from "../../login"
 import { notify } from "@/shared/lib"
+import { toggleBookFavorites } from "@/features/favorites/favoritesActions/model/toggleFavorites"
 
 interface InitState {
   user: {
@@ -56,7 +57,19 @@ export const usersSlice = createSlice({
       })
       .addCase(getUser.rejected, (state) => {
         state.user.loading = false
-        state.user.error = false
+        state.user.error = true
+      })
+      //? toggle favorites
+      .addCase(toggleBookFavorites.pending, (state) => {
+        state.user.loading = true
+      })
+      .addCase(toggleBookFavorites.fulfilled, (state, action) => {
+        state.user.data = action.payload || null
+        state.user.loading = false
+      })
+      .addCase(toggleBookFavorites.rejected, (state) => {
+        state.user.loading = false
+        state.user.error = true
       })
   },
 })

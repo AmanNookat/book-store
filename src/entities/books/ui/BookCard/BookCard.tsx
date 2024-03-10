@@ -57,7 +57,7 @@ export const BookCard: React.FC<Props> = ({ book, actionSlot, size = "m" }) => {
           }}
           disabled={!book?.quantity}
         >
-          {book.quantity >= 1
+          {book.quantity > 0
             ? bookInCart
               ? "Оформить"
               : "Купить"

@@ -3,7 +3,6 @@ import { BookList } from "@/widgets/BookList"
 import { useEffect } from "react"
 import style from "./PopularBooks.module.scss"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { getUserProfile } from "@/entities/users/api/usersApi"
 
 export const PopularBookList = () => {
   const { popularBooks } = useAppSelector((state) => state.books)
