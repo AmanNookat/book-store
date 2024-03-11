@@ -5,6 +5,7 @@ import { getUser } from "../api/usersApi"
 import { loginThunk } from "../../login"
 import { notify } from "@/shared/lib"
 import { toggleBookFavorites } from "@/features/favorites/favoritesActions/model/toggleFavorites"
+import { cleanCart } from "@/features/cart"
 
 interface InitState {
   user: {
@@ -29,6 +30,7 @@ export const usersSlice = createSlice({
     logout: (state, action) => {
       state.user.data = null
       localStorage.removeItem("readonly")
+      cleanCart()
       action.payload("/")
       window.location.reload()
     },

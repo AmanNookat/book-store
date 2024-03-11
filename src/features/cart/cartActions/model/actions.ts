@@ -22,6 +22,13 @@ export const setCartData = (cart: Cart) => {
   localStorage.setItem("Rcart", JSON.stringify(cart))
 }
 
+export const cartBooksCount = () => {
+  const cart = getCartData()
+  return cart.books.reduce((acc: number, curr: CartBookObj) => {
+    return acc + curr.count
+  }, 0)
+}
+
 export const checkBookInCart = (bookId: number) => {
   const cart = getCartData()
   return cart.books.find((book: CartBookObj) => book.bookItem.id === bookId)
@@ -35,17 +42,11 @@ export const countCartTotalCost = (cartBooks: CartBookObj[]) =>
 export const addBookToCart = (bookObj: CartBookItem) => {
   const cart = getCartData()
 
-  // if (checkBookInCart(bookObj.id)) {
-  //   cart.books = cart.books.filter(
-  //     (book: CartBookObj) => book.bookItem.id !== bookObj.id
-  //   )
-  // } else {
   cart.books.push({
     count: 1,
     totalPrice: +bookObj.price,
     bookItem: bookObj,
   })
-  // }
   cart.totalCost = countCartTotalCost(cart.books)
   setCartData(cart)
 }
@@ -53,7 +54,7 @@ export const addBookToCart = (bookObj: CartBookItem) => {
 export const changeCountBooksInCart = (bookId: number, count: number) => {
   if (count < 0)
     return notify("Число не может быть отрицательным", NOTIFY_TYPES.error)
-  if (count === 0) return deleteBookFromCart(bookId)
+
   const cart = getCartData()
   cart.books = cart.books.map((book: CartBookObj) => {
     if (book.bookItem.id === bookId) {

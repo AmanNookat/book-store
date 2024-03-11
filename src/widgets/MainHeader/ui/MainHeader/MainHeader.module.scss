@@ -1,0 +1,12 @@
+@import "@/shared/colors";
+@import "@/shared/breakpoints";
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 1300px) {
+    flex-wrap: wrap;
+  }
+}

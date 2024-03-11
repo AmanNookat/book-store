@@ -11,10 +11,14 @@
 
   &_inner {
     display: flex;
-    max-width: 1300px;
+    max-width: 92%;
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
+
+    @media ($adap-xl) {
+      flex-wrap: wrap;
+    }
   }
 
   &_input {
@@ -23,6 +27,11 @@
     background-color: #fff;
     padding: 4px 4px 4px 15px;
     border-radius: 4px;
+
+    @media ($adap-xl) {
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 
   &_links {
@@ -36,6 +45,16 @@
       align-items: center;
       width: 60px;
       gap: 5px;
+
+      @media ($adap-xl) {
+        width: auto;
+        flex: 1;
+      }
+    }
+
+    @media ($adap-xl) {
+      justify-content: space-between;
+      margin: 20px auto 0;
     }
   }
 }

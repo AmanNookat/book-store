@@ -4,5 +4,8 @@
   display: flex;
   img {
     width: 150px;
+    @media ($adap-s) {
+      width: 120px;
+    }
   }
 }

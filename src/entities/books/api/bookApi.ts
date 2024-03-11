@@ -2,24 +2,43 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { API_ENDPOINTS } from "@/shared/api"
 import { Book } from "../model/interfaces"
 import { instance } from "@/shared/api/instance"
-import { deleteBookFromCart } from "@/features/cart"
 
-export const getBooks = createAsyncThunk<Book[]>(
+const getTotalPages = async (url: Url) => {
+  const { data } = await instance.get(url)
+  const totalPages = Math.ceil(data.length / 16)
+  return totalPages
+}
+
+export const getBooks = createAsyncThunk(
   "books/getBooks",
-  async () => (await instance.get<Book[]>(API_ENDPOINTS.BOOKS)).data
+  async (_, { getState }) => {
+    const { currentPage, currentCategory, search, priceRange } = (
+      getState() as RootState
+    ).books
+    const categoryAndSearchParams = `q=${search}${
+      currentCategory && `&category=${currentCategory}`
+    }`
+
+    const pagesLimitParams = `?_page=${currentPage}&_limit=16`
+    const totalPages = await getTotalPages(
+      `${API_ENDPOINTS.BOOKS}?${categoryAndSearchParams}${priceRange}`
+    )
+
+    const { data } = await instance.get(
+      `${API_ENDPOINTS.BOOKS}${pagesLimitParams}&${categoryAndSearchParams}${priceRange}`
+    )
+
+    return { data, totalPages }
+  }
 )
 
 export const getPopularBooks = createAsyncThunk<Book[]>(
   "books/getPopularBooks",
   async () =>
     (
-      await instance.get<Book[]>(API_ENDPOINTS.BOOKS, {
-        params: {
-          _limit: 10,
-          _sort: "rating",
-          _order: "desc",
-        },
-      })
+      await instance.get<Book[]>(
+        `${API_ENDPOINTS.BOOKS}?_limit=10&_sort=rating&_order=desc`
+      )
     ).data
 )
 

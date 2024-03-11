@@ -1,6 +1,6 @@
 interface Props {
   options: string[]
-  title: string
+  title?: string
   register?: any
   onChange: any
   value?: string

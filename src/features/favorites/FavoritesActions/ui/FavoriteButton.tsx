@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback, useMemo } from "react"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { toggleBookFavorites } from "../model/toggleFavorites"
 import { BookInFav } from "@/entities/favorites"
@@ -11,12 +11,17 @@ export const FavoriteButton = ({ book }: { book: BookInFav }) => {
   const [isFavBook, setIsFavBook] = useState(false)
   const dispatch = useAppDispatch()
 
+  const email = getAuth()
+
+  const handleToggleFavorites = useCallback(() => {
+    dispatch(toggleBookFavorites(book))
+  }, [dispatch, book])
+
   useEffect(() => {
-    const email = getAuth()
     if (email) {
       dispatch(getUser(email))
     }
-  }, [])
+  }, [email])
 
   useEffect(() => {
     const isBookFav = user.data?.favorites.some(
@@ -29,7 +34,7 @@ export const FavoriteButton = ({ book }: { book: BookInFav }) => {
   }, [user, book])
 
   return (
-    <Button onClick={() => dispatch(toggleBookFavorites(book))}>
+    <Button onClick={handleToggleFavorites}>
       {isFavBook ? <Icon type="favorites-full" /> : <Icon type="favorites" />}
     </Button>
   )

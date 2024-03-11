@@ -1,4 +1,5 @@
 import { Outlet, ScrollRestoration } from "react-router-dom"
+import { Footer } from "./Footer/Footer"
 
 interface Props {
   navbarSlot?: React.ReactNode
@@ -17,7 +18,7 @@ export const Layout: React.FC<Props> = (props) => {
       <div
         className=""
         style={{
-          maxWidth: 1300,
+          maxWidth: "90%",
           margin: "0 auto",
         }}
       >
@@ -26,9 +27,7 @@ export const Layout: React.FC<Props> = (props) => {
         </div>
         {props.sidebarSlot && <aside className="">{props.sidebarSlot}</aside>}
       </div>
-      <footer className="">
-        <div className="">Footer {new Date().getFullYear()}</div>
-      </footer>
+      <Footer />
       {props.bottomSlot}
       <ScrollRestoration />
     </div>

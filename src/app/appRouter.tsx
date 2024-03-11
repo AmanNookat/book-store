@@ -6,10 +6,9 @@ import { FavoritesPage } from "@/pages/favorites"
 import { CartPage } from "@/pages/cart"
 import { ErrorPage } from "@/pages/error"
 import { ProfilePage } from "@/pages/profile"
+import { BookPage, CatalogPage } from "@/pages/books"
+import { OrdersPage } from "@/pages/orders"
 import { getAuth } from "@/shared/lib/auth"
-import { OrdersPage } from "@/pages/orders/ui/Page/Page"
-import { CatalogPage } from "@/pages/books/ui/Page/CatalogPage"
-import { BookPage } from "@/pages/books"
 
 interface GuardProps {
   children: React.ReactElement

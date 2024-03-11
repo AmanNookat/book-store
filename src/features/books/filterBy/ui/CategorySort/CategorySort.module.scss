@@ -1,0 +1,21 @@
+@import "@/shared/colors";
+
+.root {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  .category {
+    background-color: $main-color;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .selected {
+    background-color: $button-primary-hovered;
+  }
+}

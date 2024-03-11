@@ -1,9 +1,10 @@
-import { PaymentForm } from "@/entities/orders/ui/PaymentForm/PaymentForm"
-
 export const OrdersPage = () => {
   return (
-    <div>
-      <PaymentForm />
-    </div>
+    <img
+      src="https://cdn.dribbble.com/users/721524/screenshots/4112199/no_orders.png"
+      style={{ margin: "0 auto" }}
+      width={"50%"}
+      alt=""
+    />
   )
 }
