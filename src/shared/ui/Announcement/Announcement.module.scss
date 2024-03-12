@@ -1,0 +1,12 @@
+@import "@/shared/colors";
+@import "@/shared/breakpoints";
+
+.root {
+  background-color: $primary_color;
+  padding: 7px 0;
+  text-align: center;
+
+  @media ($adap-m) {
+    font-size: 10px;
+  }
+}

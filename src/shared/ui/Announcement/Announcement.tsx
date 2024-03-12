@@ -1,9 +1,10 @@
-import { FC, ReactNode } from "react"
+import style from "./Announcement.module.scss"
+import cn from "classnames"
 
 interface Props {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const Announcement: FC<Props> = ({ children }) => {
-  return <div className="">{children}</div>
+export const Announcement: React.FC<Props> = ({ children }) => {
+  return <div className={cn(style.root, "text-sm")}>{children}</div>
 }

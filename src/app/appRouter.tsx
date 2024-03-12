@@ -1,26 +1,29 @@
-import { FC, ReactElement } from "react"
 import { Navigate, createBrowserRouter } from "react-router-dom"
 import { baseLayout } from "./layouts/baseLayout"
 import { MainPage } from "@/pages/main"
 import { SignInPage, SignUpPage } from "@/pages/auth"
 import { FavoritesPage } from "@/pages/favorites"
 import { CartPage } from "@/pages/cart"
-import { BookPage } from "@/pages/book"
+import { ErrorPage } from "@/pages/error"
+import { ProfilePage } from "@/pages/profile"
+import { BookPage, CatalogPage } from "@/pages/books"
+import { OrdersPage } from "@/pages/orders"
+import { getAuth } from "@/shared/lib/auth"
 
 interface GuardProps {
-  children: ReactElement
+  children: React.ReactElement
 }
 
-const GuestGuard: FC<GuardProps> = ({ children }) => {
-  const isAuth = localStorage.getItem("readonly")
+const GuestGuard: React.FC<GuardProps> = ({ children }) => {
+  const isAuth = getAuth()
 
   if (!isAuth) return <Navigate to="/sign-in" />
 
   return children
 }
 
-const AuthGuard: FC<GuardProps> = ({ children }) => {
-  const isAuth = localStorage.getItem("readonly")
+const AuthGuard: React.FC<GuardProps> = ({ children }) => {
+  const isAuth = getAuth()
 
   if (isAuth) return <Navigate to="/" />
 
@@ -30,8 +33,6 @@ const AuthGuard: FC<GuardProps> = ({ children }) => {
 export const appRouter = createBrowserRouter([
   {
     element: baseLayout,
-    errorElement: <div>error</div>,
-    // loader:
     children: [
       {
         path: "/",
@@ -54,32 +55,53 @@ export const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/user/profile",
-        element: (
-          <GuestGuard>
-            <CartPage />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "/user/favorites",
-        element: (
-          <GuestGuard>
-            <FavoritesPage />
-          </GuestGuard>
-        ),
-      },
-      {
-        path: "/user/cart",
-        element: (
-          <GuestGuard>
-            <CartPage />
-          </GuestGuard>
-        ),
+        path: "/user",
+        children: [
+          {
+            path: "profile",
+            element: (
+              <GuestGuard>
+                <ProfilePage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "favorites",
+            element: (
+              <GuestGuard>
+                <FavoritesPage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "cart",
+            element: (
+              <GuestGuard>
+                <CartPage />
+              </GuestGuard>
+            ),
+          },
+          {
+            path: "orders",
+            element: (
+              <GuestGuard>
+                <OrdersPage />
+              </GuestGuard>
+            ),
+          },
+        ],
       },
       {
         path: "/book/:bookId",
         element: <BookPage />,
+      },
+      {
+        path: "/catalog",
+        element: <CatalogPage />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

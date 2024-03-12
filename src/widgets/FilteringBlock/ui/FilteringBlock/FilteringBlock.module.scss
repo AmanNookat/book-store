@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 30px;
+
+  .inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+}

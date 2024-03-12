@@ -1,0 +1,40 @@
+@import "@/shared/colors";
+
+.root {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+  border-radius: 5px;
+
+  .image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 300px;
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .price {
+    color: $danger-color;
+  }
+
+  .card_bottom {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .author {
+    opacity: 0.5;
+  }
+}

@@ -1,15 +1,17 @@
 import { Announcement, Layout } from "@/shared/ui"
 import { LayoutHeader } from "@/widgets/LayoutHeader"
-import { PageUpButton } from "@/widgets/PageUpButton"
+import { ToastContainer } from "react-toastify"
 
 export const baseLayout = (
-  <Layout
-    announcementSlot={
-      <Announcement>
-        <span>Объявление</span>
-      </Announcement>
-    }
-    bottomSlot={<PageUpButton />}
-    headerSlot={<LayoutHeader />}
-  />
+  <>
+    <Layout
+      announcementSlot={
+        <Announcement>
+          <span>Войдите или зарегистируйтесь, чтобы получить скидку</span>
+        </Announcement>
+      }
+      headerSlot={<LayoutHeader />}
+    />
+    <ToastContainer />
+  </>
 )

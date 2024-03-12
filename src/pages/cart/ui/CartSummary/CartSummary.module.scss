@@ -1,0 +1,23 @@
+@import "@/shared/colors";
+
+.root {
+  background-color: $border-color;
+  border-radius: 20px;
+  padding: 20px;
+  font-weight: 700;
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    font-weight: 600;
+
+    &:last-child {
+      background-color: $danger-color;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@import "@/shared/breakpoints";
+
+.root {
+  margin-top: 50px;
+
+  h1 {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    line-height: 40px;
+    @media ($adap-m) {
+      text-align: center;
+    }
+  }
+}

@@ -6,14 +6,20 @@ export interface Book {
   publisher: string
   year: number
   pages: number
-  athour: string
+  author: string
   ageLimit: AgeLimit
   category: BookCategory
-  rating: number
+  rating?: number
   description: string
   sale?: number
   quantity: number
-  id: Id
+  id?: Id
+}
+
+export interface BooksInitStateKey<T> {
+  data: T
+  loading: boolean
+  error: boolean
 }
 
 export type BookCategory =
