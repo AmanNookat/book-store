@@ -1,4 +1,7 @@
 .root {
   display: flex;
   justify-content: space-around;
+  align-items: start;
+  flex-wrap: wrap-reverse;
+  gap: 30px;
 }

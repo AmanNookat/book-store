@@ -1,8 +1,8 @@
-import { getBooks } from "@/entities/books/api/bookApi"
-import { changeCategory } from "@/features/books/model/slice"
-import { bookCategories } from "@/shared/lib/constants/book-keys"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { useEffect, useState } from "react"
+import { changeCategory } from "@/features/books"
+import { getBooks } from "@/entities/books"
+import { bookCategories } from "@/shared/lib"
 import cn from "classnames"
 import style from "./CategorySort.module.scss"
 
@@ -14,7 +14,7 @@ export const CategorySort = () => {
   useEffect(() => {
     dispatch(changeCategory({ category }))
     dispatch(getBooks())
-  }, [category])
+  }, [])
 
   useEffect(() => {
     if (!currentCategory) {

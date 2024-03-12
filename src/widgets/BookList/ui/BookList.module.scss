@@ -1,6 +1,8 @@
 .root {
   display: flex;
-  overflow-x: auto;
+  justify-content: center;
+  // overflow-x: auto;
+  flex-wrap: wrap;
   width: 100%;
   gap: 20px;
   padding: 10px;

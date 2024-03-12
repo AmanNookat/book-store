@@ -1,15 +1,15 @@
-import { Book } from "@/entities/books"
-import { Button, Icon } from "@/shared/ui"
+import { Book, BookModal, deleteBook, editBook } from "@/entities/books"
+import { Button } from "@/shared/ui"
 import { Link, useNavigate } from "react-router-dom"
-import { getAuth } from "@/shared/lib/auth"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { getUser } from "@/features/users/users/api/usersApi"
-import { useCallback, useEffect } from "react"
+import { getAuth, useCustomModal } from "@/shared/lib"
+import { useCallback, useEffect, useState } from "react"
+import { getUser } from "@/features/users/users"
 import style from "./BookDetails.module.scss"
 import cn from "classnames"
-import { deleteBook, editBook } from "@/entities/books/api/bookApi"
-import { useCustomModal } from "@/shared/lib/useCustomModal"
-import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
+import { FavoriteButton } from "@/features/favorites"
+import { addBookToCart, checkBookInCart } from "@/features/cart"
+import { Loader } from "@/shared/ui/Loader/Loader"
 
 interface Props {
   book: Book
@@ -17,10 +17,16 @@ interface Props {
 
 export const BookDetails: React.FC<Props> = ({ book }) => {
   const { data, loading, error } = useAppSelector((state) => state.users.user)
-  const dispatch = useAppDispatch()
+  const { cart } = useAppSelector((state) => state.cart)
+  const [bookInCart, setBookInCart] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const email = getAuth()
-  const editBookModal = useCustomModal(AdminModalPresenter)
+  const editBookModal = useCustomModal(BookModal)
+
+  useEffect(() => {
+    setBookInCart(checkBookInCart(book?.id!))
+  }, [cart])
 
   const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
@@ -43,7 +49,11 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
     email ? dispatch(getUser(email)) : null
   }, [])
 
-  return (
+  return loading ? (
+    <Loader color="blue" size="l" />
+  ) : error ? (
+    <div>Error</div>
+  ) : (
     <div className={style.root}>
       <div className={style.left}>
         <div className={style.left_top}>
@@ -97,10 +107,37 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
         <p className={cn(style.price, "text-5xl")}>{book?.price}с</p>
 
         <div className={style.buttons}>
-          <Button disabled={book?.quantity ? false : true}>Купить</Button>
-          <Button>
-            <Icon type="favorites" />
+          <Button
+            theme={bookInCart ? "primary" : undefined}
+            onClick={() => {
+              setBookInCart(true)
+
+              return bookInCart
+                ? navigate("/user/cart")
+                : addBookToCart({
+                    title: book?.title,
+                    author: book?.author,
+                    coverImg: book?.coverImg,
+                    price: book?.price,
+                    id: book?.id!,
+                  })
+            }}
+            disabled={!book?.quantity}
+          >
+            {book?.quantity > 0
+              ? bookInCart
+                ? "Оформить"
+                : "Купить"
+              : "Распродано"}
           </Button>
+          <FavoriteButton
+            book={{
+              author: book?.author,
+              coverImg: book?.coverImg,
+              title: book?.title,
+              id: book?.id!,
+            }}
+          />
         </div>
 
         {book?.quantity > 0 ? (
@@ -133,7 +170,7 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
               <Button
                 theme="primary"
                 onClick={() => {
-                  dispatch(deleteBook(book.id!))
+                  dispatch(deleteBook(book?.id!))
                   navigate("/")
                 }}
               >

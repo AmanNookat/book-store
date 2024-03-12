@@ -10,6 +10,9 @@
   flex-direction: column;
   gap: 20px;
 
+  position: sticky;
+  top: 100px;
+
   button {
     display: flex;
     justify-content: center;

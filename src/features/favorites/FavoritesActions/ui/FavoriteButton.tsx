@@ -1,10 +1,9 @@
-import { useEffect, useState, useCallback, useMemo } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { toggleBookFavorites } from "../model/toggleFavorites"
 import { BookInFav } from "@/entities/favorites"
-import { getAuth } from "@/shared/lib/auth"
-import { getUser } from "@/features/users/users/api/usersApi"
 import { Button, Icon } from "@/shared/ui"
+import { getAuth } from "@/shared/lib"
+import { toggleBookFavorites } from "../.."
 
 export const FavoriteButton = ({ book }: { book: BookInFav }) => {
   const { user } = useAppSelector((state) => state.users)
@@ -15,13 +14,7 @@ export const FavoriteButton = ({ book }: { book: BookInFav }) => {
 
   const handleToggleFavorites = useCallback(() => {
     dispatch(toggleBookFavorites(book))
-  }, [dispatch, book])
-
-  useEffect(() => {
-    if (email) {
-      dispatch(getUser(email))
-    }
-  }, [email])
+  }, [book])
 
   useEffect(() => {
     const isBookFav = user.data?.favorites.some(

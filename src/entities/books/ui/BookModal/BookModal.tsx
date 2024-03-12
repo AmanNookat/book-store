@@ -1,11 +1,10 @@
 import { useAppDispatch } from "@/shared/model"
-import { Button, Input, Modal } from "@/shared/ui"
+import { Button, Input, Modal, Select } from "@/shared/ui"
 import { ChangeEvent, useCallback, useEffect, useState } from "react"
+import { ageLimits, bookCategories } from "@/shared/lib"
 import { useForm } from "react-hook-form"
-import { addBook } from "../../api/bookApi"
-import { ageLimits, bookCategories } from "@/shared/lib/constants/book-keys"
-import { AgeLimit, Book, BookCategory } from "../.."
-import { Select } from "@/shared/ui/Select/Select"
+import { Book, addBook } from "../.."
+import style from "./BookModal.module.scss"
 
 interface Props {
   title: string
@@ -15,7 +14,7 @@ interface Props {
   book?: Book
 }
 
-export const AdminModalPresenter: React.FC<Props> = ({
+export const BookModal: React.FC<Props> = ({
   title,
   onConfirm,
   onCancel,
@@ -52,7 +51,7 @@ export const AdminModalPresenter: React.FC<Props> = ({
   return (
     <Modal>
       <h2>{title}</h2>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)} className={style.root}>
         {Object.entries({
           title: "Название",
           author: "Автор",
@@ -67,22 +66,25 @@ export const AdminModalPresenter: React.FC<Props> = ({
           description: "Описание",
         }).map(([field, label]) => (
           <div key={field}>
-            <label>{label}</label>
             {field === "ageLimit" || field === "category" ? (
-              <Select
-                title={field === "ageLimit" ? "возраст" : "категория"}
-                options={field === "ageLimit" ? ageLimits : bookCategories}
-                register={register(field)}
-                value={book && editedBook?.[field]}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  handleInputChange(
-                    field as keyof Book,
-                    e.target.value as string
-                  )
-                }
-              />
+              <div className={style.select}>
+                <label>{label}</label>
+                <Select
+                  title={field === "ageLimit" ? "возраст" : "категория"}
+                  options={field === "ageLimit" ? ageLimits : bookCategories}
+                  register={register(field)}
+                  value={book && editedBook?.[field]}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    handleInputChange(
+                      field as keyof Book,
+                      e.target.value as string
+                    )
+                  }
+                />
+              </div>
             ) : (
               <Input
+                placeholder={label}
                 type={
                   field === "price" ||
                   field === "pages" ||
@@ -109,7 +111,7 @@ export const AdminModalPresenter: React.FC<Props> = ({
             )}
           </div>
         ))}
-        <div>
+        <div className={style.buttons}>
           <Button onClick={onCancel}>Отмена</Button>
           <Button type="submit">{confirmText}</Button>
         </div>

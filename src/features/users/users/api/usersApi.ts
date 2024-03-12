@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { instance } from "@/shared/api/instance"
-import { API_ENDPOINTS } from "@/shared/api"
-import { User } from "./interfaces"
+import { API_ENDPOINTS, instance } from "@/shared/api"
+import { User } from ".."
 
 export const getUser = createAsyncThunk(
   "users/getUser",
   async (email: Email) => {
     const { data } = await instance.get<User[]>(API_ENDPOINTS.USERS)
-    return data.find((elem) => elem.email === email)
+    const user = data.find((elem) => elem.email === email)
+    return user
   }
 )
 

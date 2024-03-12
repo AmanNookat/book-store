@@ -1,6 +1,5 @@
 import { Cart, CartBookItem, CartBookObj } from "@/entities/cart"
-import { NOTIFY_TYPES, notify } from "@/shared/lib"
-import { getAuth } from "@/shared/lib/auth"
+import { NOTIFY_TYPES, getAuth, notify } from "@/shared/lib"
 
 export const getCartData = () => {
   const cartCheck = localStorage.getItem("Rcart")

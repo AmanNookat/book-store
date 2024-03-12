@@ -1,7 +1,6 @@
-import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
+import { BookModal } from "@/entities/books/ui/BookModal/BookModal"
 import { getUser } from "@/features/users/users/api/usersApi"
 import { logout } from "@/features/users/users/model/slice"
-import { getAuth } from "@/shared/lib/auth"
 import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { Button } from "@/shared/ui"
@@ -9,13 +8,15 @@ import { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import style from "./ProfilePage.module.scss"
 import cn from "classnames"
+import { getAuth } from "@/shared/lib"
+import { Loader } from "@/shared/ui/Loader/Loader"
 
 export const ProfilePage = () => {
-  const { data } = useAppSelector((state) => state.users.user)
+  const { data, loading, error } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const email = getAuth()
-  const addBookModal = useCustomModal(AdminModalPresenter)
+  const addBookModal = useCustomModal(BookModal)
 
   const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
@@ -36,7 +37,11 @@ export const ProfilePage = () => {
     email && dispatch(getUser(email))
   }, [])
 
-  return (
+  return loading ? (
+    <Loader color="blue" size="l" />
+  ) : error ? (
+    <div>Error</div>
+  ) : (
     <div className={cn(style.root, "shadow")}>
       <img
         src={

@@ -1,1 +1,1 @@
-export { booksSlice } from "./model/slice"
+export * from "./model/slice"

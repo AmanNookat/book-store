@@ -1,7 +1,6 @@
 import { cleanCart, getCartData } from "@/features/cart"
 import { getCart } from "@/features/cart/model/slice"
-import { API_ENDPOINTS } from "@/shared/api"
-import { instance } from "@/shared/api/instance"
+import { API_ENDPOINTS, instance } from "@/shared/api"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 export const createOrder = createAsyncThunk(

@@ -1,11 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { API_ENDPOINTS } from "@/shared/api"
+import { API_ENDPOINTS, instance } from "@/shared/api"
 import { Book } from "../model/interfaces"
-import { instance } from "@/shared/api/instance"
 
 const getTotalPages = async (url: Url) => {
   const { data } = await instance.get(url)
-  const totalPages = Math.ceil(data.length / 16)
+  const totalPages = Math.ceil(data.length / 10)
   return totalPages
 }
 
@@ -19,7 +18,7 @@ export const getBooks = createAsyncThunk(
       currentCategory && `&category=${currentCategory}`
     }`
 
-    const pagesLimitParams = `?_page=${currentPage}&_limit=16`
+    const pagesLimitParams = `?_page=${currentPage}&_limit=10`
     const totalPages = await getTotalPages(
       `${API_ENDPOINTS.BOOKS}?${categoryAndSearchParams}${priceRange}`
     )

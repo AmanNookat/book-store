@@ -1,27 +1,26 @@
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/shared/ui"
 import { textCut } from "@/shared/lib"
-import style from "./BookCard.module.scss"
-import cn from "classnames"
 import { addBookToCart, checkBookInCart } from "@/features/cart"
 import { useAppSelector } from "@/shared/model"
 import { useEffect, useState } from "react"
 import { Book } from "../.."
+import style from "./BookCard.module.scss"
+import cn from "classnames"
 
 interface Props {
   book: Book
   actionSlot?: React.ReactNode
-  size?: "s" | "m"
 }
 
-export const BookCard: React.FC<Props> = ({ book, actionSlot, size = "m" }) => {
+export const BookCard: React.FC<Props> = ({ book, actionSlot }) => {
   const { cart } = useAppSelector((state) => state.cart)
   const [bookInCart, setBookInCart] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     setBookInCart(checkBookInCart(book.id!))
-  }, [cart])
+  }, [cart.data])
 
   return (
     <div className={cn(style.root, "shadow")}>

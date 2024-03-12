@@ -1,14 +1,10 @@
 import { useForm } from "react-hook-form"
 import { useAppDispatch } from "@/shared/model"
-import {
-  RegisterFormSchema,
-  registerFormSchema,
-} from "../../model/registerFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
-import { registerThunk } from "../../model/register"
 import { Link } from "react-router-dom"
 import { Button, Input } from "@/shared/ui"
+import { RegisterFormSchema, registerFormSchema, registerThunk } from "../.."
 import style from "./RegisterForm.module.scss"
 import cn from "classnames"
 

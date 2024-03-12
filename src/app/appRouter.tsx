@@ -8,7 +8,7 @@ import { ErrorPage } from "@/pages/error"
 import { ProfilePage } from "@/pages/profile"
 import { BookPage, CatalogPage } from "@/pages/books"
 import { OrdersPage } from "@/pages/orders"
-import { getAuth } from "@/shared/lib/auth"
+import { getAuth } from "@/shared/lib"
 
 interface GuardProps {
   children: React.ReactElement
@@ -33,6 +33,7 @@ const AuthGuard: React.FC<GuardProps> = ({ children }) => {
 export const appRouter = createBrowserRouter([
   {
     element: baseLayout,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -98,10 +99,6 @@ export const appRouter = createBrowserRouter([
       {
         path: "/catalog",
         element: <CatalogPage />,
-      },
-      {
-        path: "*",
-        element: <ErrorPage />,
       },
     ],
   },

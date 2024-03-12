@@ -1,5 +1,7 @@
 import { getBooks } from "@/entities/books/api/bookApi"
+import { Pagination } from "@/entities/books/ui/Pagination/Pagination"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
+import { Loader } from "@/shared/ui/Loader/Loader"
 import { BookList } from "@/widgets/BookList"
 import { FilteringBlock } from "@/widgets/FilteringBlock/ui/FilteringBlock/FilteringBlock"
 import { useEffect } from "react"
@@ -12,9 +14,10 @@ export const CatalogPage = () => {
   }, [])
 
   return (
-    <div>
+    <>
       <FilteringBlock />
+      <Pagination />
       <BookList books={books.data} />
-    </div>
+    </>
   )
 }

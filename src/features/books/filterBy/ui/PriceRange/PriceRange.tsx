@@ -1,8 +1,8 @@
-import { getBooks } from "@/entities/books/api/bookApi"
-import { setPriceRangeState } from "@/features/books/model/slice"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { Button, Input } from "@/shared/ui"
 import { ChangeEvent, useEffect, useState } from "react"
+import { setPriceRangeState } from "@/features/books"
+import { getBooks } from "@/entities/books"
 import style from "./PriceRange.module.scss"
 
 export const PriceRange = () => {

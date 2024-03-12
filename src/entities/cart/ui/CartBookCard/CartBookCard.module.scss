@@ -1,9 +1,18 @@
+@import "@/shared/breakpoints";
+
 .root {
   display: flex;
   gap: 20px;
 
+  @media ($adap-m) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   img {
     width: 100px;
+    height: 150px;
     cursor: pointer;
   }
 }

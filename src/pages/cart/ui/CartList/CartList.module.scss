@@ -1,4 +1,5 @@
 @import "@/shared/colors";
+@import "@/shared/breakpoints";
 
 .root {
   display: flex;
@@ -11,12 +12,31 @@
     display: flex;
     width: 45rem;
 
+    @media ($adap-l) {
+      width: 35rem;
+    }
+
+    @media (max-width: 580px) {
+      width: 22rem;
+      font-size: 12px;
+    }
+
+    @media ($adap-s) {
+      width: 15rem;
+      flex-wrap: wrap;
+    }
+
     &_options {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: end;
       width: 30%;
+
+      @media ($adap-s) {
+        width: 100%;
+        display: flex;
+      }
 
       .price {
         color: $danger_color;

@@ -1,6 +1,8 @@
-import { CategorySort } from "@/features/books/filterBy/ui/CategorySort/CategorySort"
-import { ClearFilter } from "@/features/books/filterBy/ui/ClearFilters/ClearFilter"
-import { PriceRange } from "@/features/books/filterBy/ui/PriceRange/PriceRange"
+import {
+  CategorySort,
+  ClearFilter,
+  PriceRange,
+} from "@/features/books/filterBy"
 import style from "./FilteringBlock.module.scss"
 
 export const FilteringBlock = () => {

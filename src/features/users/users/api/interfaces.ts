@@ -1,3 +1,5 @@
+import { BookInFav } from "@/entities/favorites"
+
 export interface User {
   email: string
   password: string
@@ -6,6 +8,6 @@ export interface User {
   image: Url
   age: number
   about: string
-  favorites: any[]
+  favorites: BookInFav[]
   id?: number
 }

@@ -1,5 +1,5 @@
-import { getBooks } from "@/entities/books/api/bookApi"
-import { clearAllFilters } from "@/features/books/model/slice"
+import { getBooks } from "@/entities/books"
+import { clearAllFilters } from "@/features/books"
 import { useAppDispatch } from "@/shared/model"
 import { Button } from "@/shared/ui"
 

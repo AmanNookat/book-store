@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getCartData } from ".."
 import { Cart } from "@/entities/cart"
+import { getCartData } from ".."
 
 interface InitState {
   cart: {
