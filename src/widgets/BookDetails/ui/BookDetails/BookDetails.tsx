@@ -2,14 +2,13 @@ import { Book, BookModal, deleteBook, editBook } from "@/entities/books"
 import { Button } from "@/shared/ui"
 import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { getAuth, useCustomModal } from "@/shared/lib"
+import { useCustomModal } from "@/shared/lib"
 import { useCallback, useEffect, useState } from "react"
-import { getUser } from "@/features/users/users"
-import style from "./BookDetails.module.scss"
-import cn from "classnames"
 import { FavoriteButton } from "@/features/favorites"
 import { addBookToCart, checkBookInCart } from "@/features/cart"
 import { Loader } from "@/shared/ui/Loader/Loader"
+import style from "./BookDetails.module.scss"
+import cn from "classnames"
 
 interface Props {
   book: Book
@@ -21,7 +20,6 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
   const [bookInCart, setBookInCart] = useState(false)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const email = getAuth()
   const editBookModal = useCustomModal(BookModal)
 
   useEffect(() => {
@@ -43,10 +41,6 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
       },
       onCancel: () => editBookModal.remove(),
     })
-  }, [])
-
-  useEffect(() => {
-    email ? dispatch(getUser(email)) : null
   }, [])
 
   return loading ? (

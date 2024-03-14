@@ -1,22 +1,15 @@
-import { getUser } from "@/features/users/users/api/usersApi"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { useEffect } from "react"
+import { Button } from "@/shared/ui"
+import { useNavigate } from "react-router-dom"
+import { textCut } from "@/shared/lib"
+import { toggleBookFavorites } from "@/features/favorites"
 import cn from "classnames"
 import style from "./Page.module.scss"
-import { Button } from "@/shared/ui"
-import { toggleBookFavorites } from "@/features/favorites/favoritesActions/model/toggleFavorites"
-import { useNavigate } from "react-router-dom"
-import { getAuth, textCut } from "@/shared/lib"
 
 export const FavoritesPage = () => {
   const { data } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const email = getAuth()
-
-  useEffect(() => {
-    email && dispatch(getUser(email))
-  }, [])
 
   return (
     <div className={style.root}>

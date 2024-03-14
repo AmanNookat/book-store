@@ -1,10 +1,9 @@
 import { BookModal } from "@/entities/books/ui/BookModal/BookModal"
-import { getUser } from "@/features/users/users/api/usersApi"
 import { logout } from "@/features/users/users/model/slice"
 import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { Button } from "@/shared/ui"
-import { useCallback, useEffect } from "react"
+import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import style from "./ProfilePage.module.scss"
 import cn from "classnames"
@@ -31,10 +30,6 @@ export const ProfilePage = () => {
       },
       onCancel: () => addBookModal.remove(),
     })
-  }, [])
-
-  useEffect(() => {
-    email && dispatch(getUser(email))
   }, [])
 
   return loading ? (
