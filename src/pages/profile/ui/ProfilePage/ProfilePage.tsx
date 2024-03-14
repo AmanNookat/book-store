@@ -33,10 +33,6 @@ export const ProfilePage = () => {
     })
   }, [])
 
-  useEffect(() => {
-    email && dispatch(getUser(email))
-  }, [])
-
   return loading ? (
     <Loader color="blue" size="l" />
   ) : error ? (

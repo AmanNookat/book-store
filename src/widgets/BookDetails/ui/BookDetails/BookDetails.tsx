@@ -45,10 +45,6 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
     })
   }, [])
 
-  useEffect(() => {
-    email ? dispatch(getUser(email)) : null
-  }, [])
-
   return loading ? (
     <Loader color="blue" size="l" />
   ) : error ? (

@@ -12,11 +12,6 @@ export const FavoritesPage = () => {
   const { data } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const email = getAuth()
-
-  useEffect(() => {
-    email && dispatch(getUser(email))
-  }, [])
 
   return (
     <div className={style.root}>
