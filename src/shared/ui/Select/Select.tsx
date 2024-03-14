@@ -1,8 +1,11 @@
+import { ChangeEvent } from "react"
+import style from "./Select.module.scss"
+
 interface Props {
   options: string[]
   title?: string
   register?: any
-  onChange: any
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
   value?: string
 }
 
@@ -15,7 +18,13 @@ export const Select: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <select {...register} {...props} value={value} onChange={onChange}>
+    <select
+      className={style.root}
+      {...register}
+      {...props}
+      value={value}
+      onChange={onChange}
+    >
       {options?.map((item, index) => (
         <option key={index}>{item}</option>
       ))}

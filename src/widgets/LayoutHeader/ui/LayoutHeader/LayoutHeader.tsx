@@ -1,14 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 import { Button, Icon, Input } from "@/shared/ui"
 import { Logo } from "../.."
-import { navbarLinks } from "@/shared/lib"
-import { getAuth } from "@/shared/lib/auth"
-import style from "./LayoutHeader.module.scss"
+import { debounce, getAuth, navbarLinks } from "@/shared/lib"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { ChangeEvent, useState } from "react"
-import { setSearchVal } from "@/features/books/model/slice"
-import { getBooks } from "@/entities/books/api/bookApi"
-import { debounce } from "@/shared/lib/debounce"
+import { setSearchVal } from "@/features/books"
+import { getBooks } from "@/entities/books"
+import style from "./LayoutHeader.module.scss"
 
 export const LayoutHeader = () => {
   const { search } = useAppSelector((state) => state.books)

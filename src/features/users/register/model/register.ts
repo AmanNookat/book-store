@@ -1,8 +1,7 @@
-import { API_ENDPOINTS } from "@/shared/api"
-import { instance } from "@/shared/api/instance"
+import { API_ENDPOINTS, instance } from "@/shared/api"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { getUser } from "../../users/api/usersApi"
 import { notify } from "@/shared/lib"
+import { getUser } from "../../users"
 
 interface User {
   email: string

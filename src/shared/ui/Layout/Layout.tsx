@@ -11,21 +11,20 @@ interface Props {
 
 export const Layout: React.FC<Props> = (props) => {
   return (
-    <div className="">
+    <div>
       {props.announcementSlot}
       {props.navbarSlot}
       {props.headerSlot}
       <div
-        className=""
         style={{
           maxWidth: "90%",
           margin: "0 auto",
         }}
       >
-        <div className="">
+        <div>
           <Outlet />
         </div>
-        {props.sidebarSlot && <aside className="">{props.sidebarSlot}</aside>}
+        {props.sidebarSlot && <aside>{props.sidebarSlot}</aside>}
       </div>
       <Footer />
       {props.bottomSlot}

@@ -1,22 +1,4 @@
-declare const _brand: unique symbol
-
 declare global {
-  // custom utility types
-  export type Nullable<T> = T | null
-
-  export type Keys<T extends Record<string, unknown>> = keyof T
-
-  export type Values<T extends Record<string, unknown>> = T[Keys<T>]
-
-  export type Indexed<
-    K extends string | number | symbol = string,
-    T = unknown
-  > = {
-    [key in K]: T
-  }
-
-  export type Brand<K, T> = K & { [_brand]: T }
-
   //  alias types
   export type Phone = string
 

@@ -3,7 +3,7 @@ import style from "./Button.module.scss"
 
 type ButtonTheme = "primary" | "secondary"
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   children: React.ReactNode

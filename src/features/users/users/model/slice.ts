@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { saveAuth } from "@/shared/lib/auth"
-import { User } from "../api/interfaces"
 import { getUser } from "../api/usersApi"
-import { loginThunk } from "../../login"
-import { notify } from "@/shared/lib"
-import { toggleBookFavorites } from "@/features/favorites/favoritesActions/model/toggleFavorites"
+import { removeAuth, saveAuth } from "@/shared/lib"
 import { cleanCart } from "@/features/cart"
+import { loginThunk } from "../../login"
+import { toggleBookFavorites } from "@/features/favorites"
+import { User } from ".."
 
 interface InitState {
   user: {
@@ -29,7 +28,7 @@ export const usersSlice = createSlice({
   reducers: {
     logout: (state, action) => {
       state.user.data = null
-      localStorage.removeItem("readonly")
+      removeAuth()
       cleanCart()
       action.payload("/")
       window.location.reload()

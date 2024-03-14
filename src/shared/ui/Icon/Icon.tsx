@@ -2,14 +2,11 @@ import cn from "classnames"
 import style from "./Icon.module.scss"
 
 export type IconType =
-  | "bag"
   | "like"
   | "liked"
   | "user"
   | "loader"
   | "cross"
-  | "chevronDown"
-  | "toggleRight"
   | "trash"
   | "catalog"
   | "search"
@@ -18,7 +15,6 @@ export type IconType =
   | "favorites-full"
   | "cart"
   | "bookmark"
-  | "edit"
 
 interface Props {
   className?: string

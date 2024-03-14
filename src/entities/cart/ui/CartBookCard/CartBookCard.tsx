@@ -1,4 +1,3 @@
-import React from "react"
 import { CartBookItem } from "../.."
 import style from "./CartBookCard.module.scss"
 

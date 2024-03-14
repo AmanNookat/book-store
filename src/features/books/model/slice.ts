@@ -3,12 +3,10 @@ import {
   Book,
   BookCategory,
   BooksInitStateKey,
-} from "@/entities/books/model/interfaces"
-import {
   getBooks,
   getOneBook,
   getPopularBooks,
-} from "@/entities/books/api/bookApi"
+} from "@/entities/books"
 
 interface InitState {
   books: BooksInitStateKey<Book[]>
@@ -93,7 +91,7 @@ export const booksSlice = createSlice({
       })
       .addCase(getBooks.fulfilled, (state, action) => {
         state.books.loading = false
-        state.books.data = action.payload.data.reverse() || []
+        state.books.data = action.payload.data || []
         state.totalPages = action.payload.totalPages
       })
       .addCase(getBooks.rejected, (state) => {

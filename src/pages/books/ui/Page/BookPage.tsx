@@ -1,25 +1,26 @@
 import { getOneBook } from "@/entities/books/api/bookApi"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
+import { Loader } from "@/shared/ui/Loader/Loader"
 import { BookDetails } from "@/widgets/BookDetails"
 import { useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 export const BookPage = () => {
+  const { data, loading, error } = useAppSelector((state) => state.books.book)
   const { bookId } = useParams<string>()
   const dispatch = useAppDispatch()
-  const { data, loading, error } = useAppSelector((state) => state.books.book)
 
   useEffect(() => {
     dispatch(getOneBook(+bookId!))
   }, [])
 
-  return loading ? (
-    <div>Loading...</div>
-  ) : error ? (
-    <div>Error</div>
-  ) : (
-    <div>
-      <BookDetails book={data!} />
-    </div>
-  )
+  if (loading) {
+    ;<Loader color="blue" size="l" />
+  }
+
+  if (error) {
+    return <div>Error</div>
+  }
+
+  return <BookDetails book={data!} />
 }

@@ -1,8 +1,7 @@
 import { BookInFav } from "@/entities/favorites"
 import { getUser } from "@/features/users/users/api/usersApi"
-import { API_ENDPOINTS } from "@/shared/api"
-import { instance } from "@/shared/api/instance"
-import { getAuth } from "@/shared/lib/auth"
+import { API_ENDPOINTS, instance } from "@/shared/api"
+import { getAuth } from "@/shared/lib"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 export const toggleBookFavorites = createAsyncThunk(

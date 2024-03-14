@@ -1,8 +1,9 @@
-import { getPopularBooks } from "@/entities/books/api/bookApi"
-import { BookList } from "@/widgets/BookList"
 import { useEffect } from "react"
-import style from "./PopularBooks.module.scss"
+import { BookList } from "@/widgets/BookList"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
+import { getPopularBooks } from "@/entities/books"
+import { Loader } from "@/shared/ui"
+import style from "./PopularBooks.module.scss"
 
 export const PopularBookList = () => {
   const { popularBooks } = useAppSelector((state) => state.books)
@@ -11,6 +12,14 @@ export const PopularBookList = () => {
   useEffect(() => {
     dispatch(getPopularBooks())
   }, [])
+
+  if (popularBooks.loading) {
+    return <Loader color="blue" size="m" />
+  }
+
+  if (popularBooks.error) {
+    return <div>Error</div>
+  }
 
   return (
     <div className={style.root}>

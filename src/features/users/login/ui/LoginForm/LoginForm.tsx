@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form"
-import { LoginFormSchema, loginFormSchema } from "../../model/loginFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
 import { useAppDispatch } from "@/shared/model"
-import { loginThunk } from "../../model/login"
 import { Link } from "react-router-dom"
 import { Button, Input } from "@/shared/ui"
+import { LoginFormSchema, loginFormSchema, loginThunk } from "../.."
 import style from "./LoginForm.module.scss"
 import cn from "classnames"
 

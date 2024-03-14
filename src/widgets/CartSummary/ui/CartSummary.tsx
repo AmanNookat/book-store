@@ -11,13 +11,15 @@ interface Props {
 export const CartSummary: React.FC<Props> = ({ cartTotalCost, showCart }) => {
   const navigate = useNavigate()
 
+  const handleClickNavigate = () => {
+    navigate("/user/orders")
+  }
+
   return (
     <div className={style.root}>
       <div>Товаров: {cartBooksCount()}</div>
       <div>Итого: {cartTotalCost}с</div>
-      <Button onClick={() => navigate("/user/orders")}>
-        Перейти к оформлению
-      </Button>
+      <Button onClick={() => handleClickNavigate}>Перейти к оформлению</Button>
       <Button
         onClick={() => {
           cleanCart()

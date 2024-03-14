@@ -1,6 +1,16 @@
+import { useAppDispatch } from "@/shared/model"
+import { getAuth } from "@/shared/lib"
+import { useEffect } from "react"
+import { getUser } from "@/features/users/users"
 import style from "./Footer.module.scss"
 
 export const Footer = () => {
+  const dispatch = useAppDispatch()
+  const email = getAuth()
+
+  useEffect(() => {
+    email && dispatch(getUser(email))
+  }, [])
   return (
     <div className={style.footer}>
       <div className={style.container}>

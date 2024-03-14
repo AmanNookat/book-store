@@ -1,15 +1,14 @@
-import { Book } from "@/entities/books"
-import { Button, Icon } from "@/shared/ui"
+import { Book, BookModal, deleteBook, editBook } from "@/entities/books"
+import { Button } from "@/shared/ui"
 import { Link, useNavigate } from "react-router-dom"
-import { getAuth } from "@/shared/lib/auth"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { getUser } from "@/features/users/users/api/usersApi"
-import { useCallback, useEffect } from "react"
+import { useCustomModal } from "@/shared/lib"
+import { useCallback, useEffect, useState } from "react"
+import { FavoriteButton } from "@/features/favorites"
+import { addBookToCart, checkBookInCart } from "@/features/cart"
+import { Loader } from "@/shared/ui/Loader/Loader"
 import style from "./BookDetails.module.scss"
 import cn from "classnames"
-import { deleteBook, editBook } from "@/entities/books/api/bookApi"
-import { useCustomModal } from "@/shared/lib/useCustomModal"
-import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
 
 interface Props {
   book: Book
@@ -17,31 +16,42 @@ interface Props {
 
 export const BookDetails: React.FC<Props> = ({ book }) => {
   const { data, loading, error } = useAppSelector((state) => state.users.user)
-  const dispatch = useAppDispatch()
+  const { cart } = useAppSelector((state) => state.cart)
+  const [bookInCart, setBookInCart] = useState(false)
+  const editBookModal = useCustomModal(BookModal)
   const navigate = useNavigate()
-  const email = getAuth()
-  const editBookModal = useCustomModal(AdminModalPresenter)
-
-  const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
-
-    editBookModal.show({
-      // @ts-ignore
-      title: "Редактировать книгу",
-      confirmText: "Сохранить",
-      book: book,
-      onConfirm: (editedBook: Book) => {
-        dispatch(editBook(editedBook))
-        editBookModal.remove()
-      },
-      onCancel: () => editBookModal.remove(),
-    })
-  }, [])
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    email ? dispatch(getUser(email)) : null
-  }, [])
+    setBookInCart(checkBookInCart(book?.id!))
+  }, [cart])
+
+  const handleOpenModal = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      e.preventDefault()
+
+      editBookModal.show({
+        // @ts-ignore
+        title: "Редактировать книгу",
+        confirmText: "Сохранить",
+        book: book,
+        onConfirm: (editedBook: Book) => {
+          dispatch(editBook(editedBook))
+          editBookModal.remove()
+        },
+        onCancel: () => editBookModal.remove(),
+      })
+    },
+    []
+  )
+
+  if (loading) {
+    return <Loader color="blue" size="l" />
+  }
+  if (error) {
+    return <div>Error</div>
+  }
 
   return (
     <div className={style.root}>
@@ -97,10 +107,37 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
         <p className={cn(style.price, "text-5xl")}>{book?.price}с</p>
 
         <div className={style.buttons}>
-          <Button disabled={book?.quantity ? false : true}>Купить</Button>
-          <Button>
-            <Icon type="favorites" />
+          <Button
+            theme={bookInCart ? "primary" : undefined}
+            onClick={() => {
+              setBookInCart(true)
+
+              return bookInCart
+                ? navigate("/user/cart")
+                : addBookToCart({
+                    title: book?.title,
+                    author: book?.author,
+                    coverImg: book?.coverImg,
+                    price: book?.price,
+                    id: book?.id!,
+                  })
+            }}
+            disabled={!book?.quantity}
+          >
+            {book?.quantity > 0
+              ? bookInCart
+                ? "Оформить"
+                : "Купить"
+              : "Распродано"}
           </Button>
+          <FavoriteButton
+            book={{
+              author: book?.author,
+              coverImg: book?.coverImg,
+              title: book?.title,
+              id: book?.id!,
+            }}
+          />
         </div>
 
         {book?.quantity > 0 ? (
@@ -127,13 +164,13 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
           </div>
           {data?.isAdmin && (
             <div className={style.admin_btns}>
-              <Button theme="primary" onClick={onClick}>
+              <Button theme="primary" onClick={handleOpenModal}>
                 Изменить
               </Button>
               <Button
                 theme="primary"
                 onClick={() => {
-                  dispatch(deleteBook(book.id!))
+                  dispatch(deleteBook(book?.id!))
                   navigate("/")
                 }}
               >

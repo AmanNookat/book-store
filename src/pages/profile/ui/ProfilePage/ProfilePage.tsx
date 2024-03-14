@@ -1,40 +1,43 @@
-import { AdminModalPresenter } from "@/entities/books/ui/BookModal/BookModal"
-import { getUser } from "@/features/users/users/api/usersApi"
-import { logout } from "@/features/users/users/model/slice"
-import { getAuth } from "@/shared/lib/auth"
-import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { Button } from "@/shared/ui"
-import { useCallback, useEffect } from "react"
+import { Button, Loader } from "@/shared/ui"
+import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { logout } from "@/features/users/users"
+import { useCustomModal } from "@/shared/lib"
+import { BookModal } from "@/entities/books"
 import style from "./ProfilePage.module.scss"
 import cn from "classnames"
 
 export const ProfilePage = () => {
-  const { data } = useAppSelector((state) => state.users.user)
+  const { data, loading, error } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const email = getAuth()
-  const addBookModal = useCustomModal(AdminModalPresenter)
+  const addBookModal = useCustomModal(BookModal)
 
-  const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
+  const onClickAddBook = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      e.preventDefault()
 
-    addBookModal.show({
-      // @ts-ignore
-      title: "Добавить новую книгу",
-      confirmText: "Добавить",
-      onConfirm: () => {
-        addBookModal.remove()
-      },
-      onCancel: () => addBookModal.remove(),
-    })
-  }, [])
+      addBookModal.show({
+        // @ts-ignore
+        title: "Добавить новую книгу",
+        confirmText: "Добавить",
+        onConfirm: () => {
+          addBookModal.remove()
+        },
+        onCancel: () => addBookModal.remove(),
+      })
+    },
+    []
+  )
 
-  useEffect(() => {
-    email && dispatch(getUser(email))
-  }, [])
+  if (loading) {
+    return <Loader color="blue" size="l" />
+  }
+  if (error) {
+    return <div>Error</div>
+  }
 
   return (
     <div className={cn(style.root, "shadow")}>
@@ -53,7 +56,7 @@ export const ProfilePage = () => {
         <p>about: {data?.about}</p>
       </div>
       {data?.isAdmin && (
-        <Button theme="primary" onClick={onClick}>
+        <Button theme="primary" onClick={onClickAddBook}>
           Добавить книгу
         </Button>
       )}

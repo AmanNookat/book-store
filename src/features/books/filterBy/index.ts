@@ -1,2 +1,3 @@
-export { SortByDropdown } from "./ui/SortByDropdown/SortByDropdown"
-export type { BookSortBy } from "./model/types"
+export { CategorySort } from "./ui/CategorySort/CategorySort"
+export { ClearFilter } from "./ui/ClearFilters/ClearFilter"
+export { PriceRange } from "./ui/PriceRange/PriceRange"
