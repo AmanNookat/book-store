@@ -17,20 +17,30 @@ export const ProfilePage = () => {
   const email = getAuth()
   const addBookModal = useCustomModal(BookModal)
 
-  const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
+  const onClickAddBook = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      e.preventDefault()
 
-    addBookModal.show({
-      // @ts-ignore
-      title: "Добавить новую книгу",
-      confirmText: "Добавить",
-      onConfirm: () => {
-        addBookModal.remove()
-      },
-      onCancel: () => addBookModal.remove(),
-    })
-  }, [])
+      addBookModal.show({
+        // @ts-ignore
+        title: "Добавить новую книгу",
+        confirmText: "Добавить",
+        onConfirm: () => {
+          addBookModal.remove()
+        },
+        onCancel: () => addBookModal.remove(),
+      })
+    },
+    []
+  )
+
+  if (loading) {
+    return <Loader color="blue" size="l" />
+  }
+  if (error) {
+    return <div>Error</div>
+  }
 
   return loading ? (
     <Loader color="blue" size="l" />
@@ -53,7 +63,7 @@ export const ProfilePage = () => {
         <p>about: {data?.about}</p>
       </div>
       {data?.isAdmin && (
-        <Button theme="primary" onClick={onClick}>
+        <Button theme="primary" onClick={onClickAddBook}>
           Добавить книгу
         </Button>
       )}
