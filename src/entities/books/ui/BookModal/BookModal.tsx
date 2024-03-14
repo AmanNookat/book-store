@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/shared/model"
 import { Button, Input, Modal, Select } from "@/shared/ui"
 import { ChangeEvent, useCallback, useEffect, useState } from "react"
-import { ageLimits, bookCategories } from "@/shared/lib"
+import { ageLimits, bookCategories, bookKeys } from "@/shared/lib"
 import { useForm } from "react-hook-form"
 import { Book, addBook } from "../.."
 import style from "./BookModal.module.scss"
@@ -21,9 +21,9 @@ export const BookModal: React.FC<Props> = ({
   confirmText,
   book,
 }) => {
+  const { handleSubmit, register, reset } = useForm()
   const [editedBook, setEditedBook] = useState<Book | null>(null)
   const dispatch = useAppDispatch()
-  const { handleSubmit, register, reset } = useForm()
 
   const onSubmitHandler = useCallback(
     async (data: any) => {
@@ -52,19 +52,7 @@ export const BookModal: React.FC<Props> = ({
     <Modal>
       <h2>{title}</h2>
       <form onSubmit={handleSubmit(onSubmitHandler)} className={style.root}>
-        {Object.entries({
-          title: "Название",
-          author: "Автор",
-          ageLimit: "Возрастное ограничение",
-          category: "Категория",
-          coverImg: "Обложка",
-          price: "Цена",
-          pages: "Страниц",
-          publisher: "Издатель",
-          year: "Год",
-          quantity: "Количество",
-          description: "Описание",
-        }).map(([field, label]) => (
+        {Object.entries(bookKeys).map(([field, label]) => (
           <div key={field}>
             {field === "ageLimit" || field === "category" ? (
               <div className={style.select}>

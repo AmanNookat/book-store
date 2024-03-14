@@ -1,20 +1,17 @@
-import { BookModal } from "@/entities/books/ui/BookModal/BookModal"
-import { logout } from "@/features/users/users/model/slice"
-import { useCustomModal } from "@/shared/lib/useCustomModal"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { Button } from "@/shared/ui"
+import { Button, Loader } from "@/shared/ui"
 import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { logout } from "@/features/users/users"
+import { useCustomModal } from "@/shared/lib"
+import { BookModal } from "@/entities/books"
 import style from "./ProfilePage.module.scss"
 import cn from "classnames"
-import { getAuth } from "@/shared/lib"
-import { Loader } from "@/shared/ui/Loader/Loader"
 
 export const ProfilePage = () => {
   const { data, loading, error } = useAppSelector((state) => state.users.user)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const email = getAuth()
   const addBookModal = useCustomModal(BookModal)
 
   const onClickAddBook = useCallback(
@@ -42,11 +39,7 @@ export const ProfilePage = () => {
     return <div>Error</div>
   }
 
-  return loading ? (
-    <Loader color="blue" size="l" />
-  ) : error ? (
-    <div>Error</div>
-  ) : (
+  return (
     <div className={cn(style.root, "shadow")}>
       <img
         src={

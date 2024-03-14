@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Button } from "@/shared/ui"
+import { Button, Loader } from "@/shared/ui"
 import { textCut } from "@/shared/lib"
 import { addBookToCart, checkBookInCart } from "@/features/cart"
 import { useAppSelector } from "@/shared/model"
@@ -22,12 +22,16 @@ export const BookCard: React.FC<Props> = ({ book, actionSlot }) => {
     setBookInCart(checkBookInCart(book.id!))
   }, [cart.data])
 
+  const handleClickNavigate = (bookId: number) => {
+    navigate(`/book/${bookId}`)
+  }
+
   return (
     <div className={cn(style.root, "shadow")}>
       <div>
         <div
           className={style.image}
-          onClick={() => navigate(`/book/${book.id}`)}
+          onClick={() => handleClickNavigate(book.id!)}
           style={{ backgroundImage: `url(${book.coverImg})` }}
         ></div>
         <div>

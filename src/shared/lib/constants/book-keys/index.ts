@@ -1,3 +1,17 @@
+export const bookKeys = {
+  title: "Название",
+  author: "Автор",
+  ageLimit: "Возрастное ограничение",
+  category: "Категория",
+  coverImg: "Обложка",
+  price: "Цена",
+  pages: "Страниц",
+  publisher: "Издатель",
+  year: "Год",
+  quantity: "Количество",
+  description: "Описание",
+}
+
 export const bookCategories = [
   "Художественная литература",
   "Комиксы",

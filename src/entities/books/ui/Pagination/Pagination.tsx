@@ -6,8 +6,8 @@ import style from "./Pagination.module.scss"
 import cn from "classnames"
 
 export const Pagination = () => {
-  const [pagesArr, setPagesArr] = useState<number[]>([])
   const { currentPage, totalPages } = useAppSelector((state) => state.books)
+  const [pagesArr, setPagesArr] = useState<number[]>([])
   const dispatch = useAppDispatch()
 
   const handleChange = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -20,8 +20,8 @@ export const Pagination = () => {
 
   useEffect(() => {
     let arr = []
-    for (let i = 0; i < totalPages; i++) {
-      arr.push(i + 1)
+    for (let i = 1; i <= totalPages; i++) {
+      arr.push(i)
     }
     setPagesArr(arr)
   }, [totalPages])

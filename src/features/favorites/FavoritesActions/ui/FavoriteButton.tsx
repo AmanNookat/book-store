@@ -2,15 +2,12 @@ import { useEffect, useState, useCallback } from "react"
 import { useAppDispatch, useAppSelector } from "@/shared/model"
 import { BookInFav } from "@/entities/favorites"
 import { Button, Icon } from "@/shared/ui"
-import { getAuth } from "@/shared/lib"
 import { toggleBookFavorites } from "../.."
 
 export const FavoriteButton = ({ book }: { book: BookInFav }) => {
   const { user } = useAppSelector((state) => state.users)
   const [isFavBook, setIsFavBook] = useState(false)
   const dispatch = useAppDispatch()
-
-  const email = getAuth()
 
   const handleToggleFavorites = useCallback(() => {
     dispatch(toggleBookFavorites(book))

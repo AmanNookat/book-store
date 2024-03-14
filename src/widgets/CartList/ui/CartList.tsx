@@ -1,5 +1,4 @@
-import { CartBookObj } from "@/entities/cart"
-import { CartBookCard } from "@/entities/cart/ui/CartBookCard/CartBookCard"
+import { CartBookCard, CartBookObj } from "@/entities/cart"
 import { changeCountBooksInCart, deleteBookFromCart } from "@/features/cart"
 import { Button, Icon, Input } from "@/shared/ui"
 import { ChangeEvent } from "react"

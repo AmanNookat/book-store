@@ -6,14 +6,13 @@ import { Button } from "@/shared/ui"
 export const ClearFilter = () => {
   const dispatch = useAppDispatch()
 
+  const handleClickClear = () => {
+    dispatch(clearAllFilters())
+    dispatch(getBooks())
+  }
+
   return (
-    <Button
-      onClick={() => {
-        dispatch(clearAllFilters())
-        dispatch(getBooks())
-      }}
-      theme="primary"
-    >
+    <Button onClick={handleClickClear} theme="primary">
       Очистить фильтры
     </Button>
   )

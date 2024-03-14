@@ -22,7 +22,7 @@ export const CategorySort = () => {
     }
   }, [currentCategory])
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickChangeCategory = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement
     setCategory(target.innerText)
   }
@@ -31,12 +31,12 @@ export const CategorySort = () => {
     <div className={style.root}>
       {bookCategories.map((categoryText) => (
         <div
-          onClick={handleClick}
+          onClick={handleClickChangeCategory}
           key={categoryText}
           className={cn(
             style.category,
-            "text-sm",
-            categoryText === category && `${style.selected}`
+            categoryText === category && `${style.selected}`,
+            "text-sm"
           )}
         >
           {categoryText}

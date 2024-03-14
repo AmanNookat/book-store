@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@/shared/model"
-import { CartList } from "../CartList/CartList"
-import { CartSummary } from "../CartSummary/CartSummary"
 import { useCallback, useEffect } from "react"
-import { getCart } from "@/features/cart/model/slice"
+import { Loader } from "@/shared/ui"
+import { getCart } from "@/features/cart"
+import { CartList } from "@/widgets/CartList"
+import { CartSummary } from "@/widgets/CartSummary"
 import style from "./Page.module.scss"
-import cn from "./Page.module.scss"
-import { Loader } from "@/shared/ui/Loader/Loader"
 
 export const CartPage = () => {
   const { cart } = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
+
   const showCart = useCallback(() => {
     dispatch(getCart())
   }, [])
@@ -18,11 +18,15 @@ export const CartPage = () => {
     showCart()
   }, [])
 
-  return cart.loading ? (
-    <Loader color="blue" size="l" />
-  ) : cart.error ? (
-    <div>Error</div>
-  ) : (
+  if (cart.loading) {
+    return <Loader color="blue" size="l" />
+  }
+
+  if (cart.error) {
+    return <div>Error</div>
+  }
+
+  return (
     <div className={style.root}>
       {cart && cart.data?.books.length ? (
         <>

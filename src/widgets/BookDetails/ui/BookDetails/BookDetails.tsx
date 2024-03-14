@@ -18,36 +18,42 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
   const { data, loading, error } = useAppSelector((state) => state.users.user)
   const { cart } = useAppSelector((state) => state.cart)
   const [bookInCart, setBookInCart] = useState(false)
+  const editBookModal = useCustomModal(BookModal)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const editBookModal = useCustomModal(BookModal)
 
   useEffect(() => {
     setBookInCart(checkBookInCart(book?.id!))
   }, [cart])
 
-  const onClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-    e.preventDefault()
+  const handleOpenModal = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation()
+      e.preventDefault()
 
-    editBookModal.show({
-      // @ts-ignore
-      title: "Редактировать книгу",
-      confirmText: "Сохранить",
-      book: book,
-      onConfirm: (editedBook: Book) => {
-        dispatch(editBook(editedBook))
-        editBookModal.remove()
-      },
-      onCancel: () => editBookModal.remove(),
-    })
-  }, [])
+      editBookModal.show({
+        // @ts-ignore
+        title: "Редактировать книгу",
+        confirmText: "Сохранить",
+        book: book,
+        onConfirm: (editedBook: Book) => {
+          dispatch(editBook(editedBook))
+          editBookModal.remove()
+        },
+        onCancel: () => editBookModal.remove(),
+      })
+    },
+    []
+  )
 
-  return loading ? (
-    <Loader color="blue" size="l" />
-  ) : error ? (
-    <div>Error</div>
-  ) : (
+  if (loading) {
+    return <Loader color="blue" size="l" />
+  }
+  if (error) {
+    return <div>Error</div>
+  }
+
+  return (
     <div className={style.root}>
       <div className={style.left}>
         <div className={style.left_top}>
@@ -158,7 +164,7 @@ export const BookDetails: React.FC<Props> = ({ book }) => {
           </div>
           {data?.isAdmin && (
             <div className={style.admin_btns}>
-              <Button theme="primary" onClick={onClick}>
+              <Button theme="primary" onClick={handleOpenModal}>
                 Изменить
               </Button>
               <Button

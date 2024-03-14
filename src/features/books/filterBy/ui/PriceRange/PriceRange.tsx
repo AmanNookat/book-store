@@ -22,6 +22,11 @@ export const PriceRange = () => {
     }
   }, [priceRange])
 
+  const handleClickPricesRanges = () => {
+    dispatch(setPriceRangeState(prices))
+    dispatch(getBooks())
+  }
+
   return (
     <div className={style.root}>
       <Input
@@ -41,14 +46,7 @@ export const PriceRange = () => {
         }
         value={prices.maxPrice}
       />
-      <Button
-        onClick={() => {
-          dispatch(setPriceRangeState(prices))
-          dispatch(getBooks())
-        }}
-      >
-        Искать
-      </Button>
+      <Button onClick={handleClickPricesRanges}>Искать</Button>
     </div>
   )
 }

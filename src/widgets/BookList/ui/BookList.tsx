@@ -1,5 +1,5 @@
 import { Book, BookCard } from "@/entities/books"
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { getAuth } from "@/shared/lib"
 import { FavoriteButton } from "@/features/favorites"
 import style from "./BookList.module.scss"
@@ -14,15 +14,6 @@ interface Props<T extends Book> {
 export const BookList: React.FC<Props<Book>> = (props) => {
   const { books } = props
   const list = useRef<HTMLDivElement>(null)
-
-  // useEffect(() => {
-  //   list.current!.addEventListener("wheel", function (event) {
-  //     if (event.deltaY !== 0) {
-  //       event.preventDefault()
-  //       this.scrollLeft += event.deltaY
-  //     }
-  //   })
-  // }, [])
 
   const isAuthorized = getAuth()
 
